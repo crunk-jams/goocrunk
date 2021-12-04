@@ -22,11 +22,26 @@ public class Arrow : MonoBehaviour
 			transform.forward = body.velocity.normalized;
 		}
 
-		bodyCollider.enabled = loosed;
+		if (bodyCollider != null)
+		{
+			bodyCollider.enabled = loosed;
+		}
+	}
+
+	public void SuccessfulHit()
+	{
+		transform.localScale *= 2;
 	}
 
 	private void OnCollisionEnter(Collision other)
 	{
 		Destroy(body);
+		Destroy(bodyCollider);
+
+		var target = other.collider.GetComponentInParent<Target>();
+		if (target != null)
+		{
+			target.HitRespond();
+		}
 	}
 }

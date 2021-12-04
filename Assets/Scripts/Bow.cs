@@ -71,6 +71,7 @@ public class Bow : MonoBehaviour
 					arrow.isKinematic = false;
 					arrow.velocity = body.velocity;
 					arrow.AddForce(toReticle * shotForce, ForceMode.Impulse);
+					arrow = null;
 				}
 				nocked = false;
 				StartCoroutine(WaitAfterShot());
