@@ -167,6 +167,6 @@ MonoBehaviour:
   minShotForce: 10
   maxShotForce: 50
   minPull: 0
-  maxPull: 0.5
+  maxPull: 0.45
   requiredPullBack: 0.1
   postShotDelay: 0.2

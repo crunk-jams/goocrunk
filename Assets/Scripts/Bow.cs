@@ -30,6 +30,14 @@ public class Bow : MonoBehaviour
 		{
 			var pullback = Mathf.Clamp01(-(inputPos.y - nockStartPos.y) / (Screen.height / 2.0f));
 
+			if (arrow != null)
+			{
+				var pullDistance = Mathf.Lerp(minPull, maxPull, pullback);
+				var arrowLocalPos = arrow.transform.localPosition;
+				arrowLocalPos.z = -pullDistance;
+				arrow.transform.localPosition = arrowLocalPos;
+			}
+
 			if (Input.GetMouseButton(0))
 			{
 				if (!nocked)
@@ -55,10 +63,6 @@ public class Bow : MonoBehaviour
 				if (arrow != null)
 				{
 					var shotForce = Mathf.Lerp(minShotForce, maxShotForce, pullback);
-					var pullDistance = Mathf.Lerp(minPull, maxPull, pullback);
-					var arrowLocalPos = arrow.transform.localPosition;
-					arrowLocalPos.z = pullDistance;
-					arrow.transform.localPosition = arrowLocalPos;
 					arrow.transform.parent = null;
 
 					var toReticle = (reticle.transform.position - transform.position).normalized;
