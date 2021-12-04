@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Runner : MonoBehaviour
 {
@@ -27,13 +28,14 @@ public class Runner : MonoBehaviour
 
 	public void ResetToCheckpoint()
 	{
-		body.velocity = Vector3.zero;
+		/*body.velocity = Vector3.zero;
 		var resetPosition = Vector3.zero;
 		if (checkpoint != null)
 		{
 			resetPosition = checkpoint.transform.position;
 		}
-		transform.position = resetPosition;
+		transform.position = resetPosition;*/
+		SceneManager.LoadScene("Level_1");
 	}
 
 	float DebugUpdateSpeedIntensity(float intensity)

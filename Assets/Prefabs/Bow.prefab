@@ -169,4 +169,5 @@ MonoBehaviour:
   minPull: 0
   maxPull: 0.45
   requiredPullBack: 0.1
-  postShotDelay: 0.2
+  postShotDelay: 0.5
+  screenPortionForMax: 0.25

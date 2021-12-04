@@ -21,7 +21,7 @@ public class PlayerCamera : MonoBehaviour
 	{
 		transform.position = player.transform.position + offset;
 
-		if (turning)
+		/*if (turning)
 		{
 			var dt = Time.deltaTime;
 			var remainingTurn = turnDuration - turnElapsed;
@@ -39,11 +39,17 @@ public class PlayerCamera : MonoBehaviour
 				turnDuration = 0;
 				turnElapsed = 0;
 			}
-		}
+		}*/
 	}
 
 	public void TurnTowards(Vector3 finalForward, Vector3 finalUp, float duration)
 	{
+		/*if (duration < 0.0001)
+		{
+			transform.LookAt(transform.position + finalForward, finalUp);
+			return;
+		}
+
 		var rotToForward = Mathf.Acos(Vector3.Dot(finalForward.normalized, transform.forward));
 		if (Vector3.Dot(finalForward, transform.right) < 0)
 		{
@@ -59,6 +65,6 @@ public class PlayerCamera : MonoBehaviour
 		desiredTurn = new Vector3(0, rotToForward, rotToUp) * Mathf.Rad2Deg;
 		turnDuration = duration;
 		turnElapsed = 0;
-		turning = true;
+		turning = true;*/
 	}
 }

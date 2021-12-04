@@ -15,6 +15,7 @@ public class Bow : MonoBehaviour
 	[SerializeField] private float maxPull = 0.5f;
 	[SerializeField] private float requiredPullBack = 0.1f;
 	[SerializeField] private float postShotDelay = 0.5f;
+	[SerializeField] private float screenPortionForMax = 0.5f;
 
 	private bool nocked = false;
 	private Vector2 nockStartPos = Vector2.zero;
@@ -28,9 +29,14 @@ public class Bow : MonoBehaviour
 
 		if (!waitingPostShot)
 		{
-			var pullback = Mathf.Clamp01(-(inputPos.y - nockStartPos.y) / (Screen.height / 2.0f));
+			if (arrow == null && !waitingPostShot)
+			{
+				arrow = Instantiate(arrowPrefab, arrowContainer);
+			}
 
-			if (arrow != null)
+			var pullback = Mathf.Clamp01(-(inputPos.y - nockStartPos.y) / (Screen.height * screenPortionForMax));
+
+			if (nocked)
 			{
 				var pullDistance = Mathf.Lerp(minPull, maxPull, pullback);
 				var arrowLocalPos = arrow.transform.localPosition;
@@ -45,7 +51,6 @@ public class Bow : MonoBehaviour
 					nocked = true;
 					nockStartPos = inputPos;
 					reticle.Lock();
-					arrow = Instantiate(arrowPrefab, arrowContainer);
 					arrow.transform.forward = transform.forward;
 				}
 			}

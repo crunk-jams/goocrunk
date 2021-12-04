@@ -17,7 +17,7 @@ public class Arrow : MonoBehaviour
 	private void Update()
 	{
 		var loosed = body != null && body.useGravity && !body.isKinematic;
-		if (loosed)
+		if (loosed && body.velocity.sqrMagnitude > 0)
 		{
 			transform.forward = body.velocity.normalized;
 		}
