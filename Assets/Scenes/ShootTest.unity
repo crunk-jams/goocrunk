@@ -2025,7 +2025,11 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 775722051147224717, guid: e1e3614f9b2d94b50b9daddac6e85d1c, type: 3}
-      propertyPath: m_Enabled
+      propertyPath: maxSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 775722051147224717, guid: e1e3614f9b2d94b50b9daddac6e85d1c, type: 3}
+      propertyPath: minSpeed
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
