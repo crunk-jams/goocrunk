@@ -14,39 +14,52 @@ public class Bow : MonoBehaviour
 	[SerializeField] private float minPull = 0f;
 	[SerializeField] private float maxPull = 0.5f;
 	[SerializeField] private float requiredPullBack = 0.1f;
-	[SerializeField] private float postShotDelay = 0.5f;
 	[SerializeField] private float screenPortionForMax = 0.5f;
 
 	private bool nocked = false;
 	private Vector2 nockStartPos = Vector2.zero;
 	private Rigidbody arrow = null;
 	private bool waitingPostShot = false;
-
+	private float cachedInputY = 0;
 
 	private void Update()
 	{
 		var inputPos = Input.mousePosition;
+		bool attemptingToNock = Input.GetMouseButton(0);
 
-		if (!waitingPostShot)
+		// Skip post shot wait if the player wants to nock an arrow or move camera down,
+		// because the player is not trying to move the camera back to pre-nock position.
+		if (attemptingToNock || inputPos.y < cachedInputY)
 		{
-			if (arrow == null && !waitingPostShot)
-			{
-				arrow = Instantiate(arrowPrefab, arrowContainer);
-			}
+			waitingPostShot = false;
+		}
 
-			var pullback = Mathf.Clamp01(-(inputPos.y - nockStartPos.y) / (Screen.height * screenPortionForMax));
+		if (arrow == null && !waitingPostShot)
+		{
+			arrow = Instantiate(arrowPrefab, arrowContainer);
+			arrow.transform.localPosition = Vector3.zero;
+		}
+
+		var pullback = Mathf.Clamp01((nockStartPos.y - inputPos.y) / (Screen.height * screenPortionForMax));
+
+			var pullDistance = minPull;
 
 			if (nocked)
 			{
-				var pullDistance = Mathf.Lerp(minPull, maxPull, pullback);
-				var arrowLocalPos = arrow.transform.localPosition;
-				arrowLocalPos.z = -pullDistance;
-				arrow.transform.localPosition = arrowLocalPos;
+				pullDistance = Mathf.Lerp(minPull, maxPull, pullback);
 			}
 
-			if (Input.GetMouseButton(0))
+			if (arrow != null)
 			{
-				if (!nocked)
+				var arrowLocalScale = arrow.transform.localScale;
+				arrowLocalScale.z = pullDistance;
+				arrow.transform.localScale = arrowLocalScale;
+				arrow.transform.localRotation = Quaternion.identity;
+			}
+
+			if (attemptingToNock)
+			{
+				if (!nocked && arrow != null)
 				{
 					nocked = true;
 					nockStartPos = inputPos;
@@ -70,28 +83,31 @@ public class Bow : MonoBehaviour
 					var shotForce = Mathf.Lerp(minShotForce, maxShotForce, pullback);
 					arrow.transform.parent = null;
 
-					var toReticle = (reticle.transform.position - transform.position).normalized;
-
-					arrow.transform.forward = toReticle;
+					arrow.transform.forward = transform.forward;
 					arrow.isKinematic = false;
 					arrow.velocity = body.velocity;
-					arrow.AddForce(toReticle * shotForce, ForceMode.Impulse);
+					arrow.AddForce(transform.forward * shotForce, ForceMode.Impulse);
 					arrow = null;
 				}
+
 				nocked = false;
-				StartCoroutine(WaitAfterShot());
+				StartCoroutine(RecoverAfterShot());
 			}
-		}
 
-
+			cachedInputY = inputPos.y;
 	}
 
-	private IEnumerator WaitAfterShot()
+	private IEnumerator RecoverAfterShot()
 	{
+		reticle.StartRecover();
+
 		waitingPostShot = true;
-		yield return new WaitForSeconds(postShotDelay);
+		while (Input.mousePosition.y < nockStartPos.y && waitingPostShot)
+		{
+			yield return null;
+		}
 		waitingPostShot = false;
 
-		reticle.Unlock();
+		reticle.EndRecover();
 	}
 }

@@ -3,8 +3,10 @@
   <component name="ContentModelUserStore">
     <attachedFolders />
     <explicitIncludes>
+      <Path>Library/PackageCache/com.unity.burst@1.6.0</Path>
       <Path>Library/PackageCache/com.unity.ext.nunit@1.0.6</Path>
       <Path>Library/PackageCache/com.unity.ide.rider@3.0.7</Path>
+      <Path>Library/PackageCache/com.unity.mathematics@1.2.5</Path>
       <Path>Library/PackageCache/com.unity.modules.ai@1.0.0</Path>
       <Path>Library/PackageCache/com.unity.modules.androidjni@1.0.0</Path>
       <Path>Library/PackageCache/com.unity.modules.animation@1.0.0</Path>
@@ -38,6 +40,13 @@
       <Path>Library/PackageCache/com.unity.modules.vr@1.0.0</Path>
       <Path>Library/PackageCache/com.unity.modules.wind@1.0.0</Path>
       <Path>Library/PackageCache/com.unity.modules.xr@1.0.0</Path>
+      <Path>Library/PackageCache/com.unity.polybrush@1.1.2</Path>
+      <Path>Library/PackageCache/com.unity.postprocessing@3.1.1</Path>
+      <Path>Library/PackageCache/com.unity.render-pipelines.core@12.1.2</Path>
+      <Path>Library/PackageCache/com.unity.render-pipelines.universal@12.1.2</Path>
+      <Path>Library/PackageCache/com.unity.searcher@4.9.1</Path>
+      <Path>Library/PackageCache/com.unity.settings-manager@1.0.3</Path>
+      <Path>Library/PackageCache/com.unity.shadergraph@12.1.2</Path>
       <Path>Library/PackageCache/com.unity.textmeshpro@3.0.6</Path>
       <Path>Library/PackageCache/com.unity.timeline@1.6.2</Path>
       <Path>Library/PackageCache/com.unity.ugui@1.0.0</Path>
