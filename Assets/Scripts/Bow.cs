@@ -20,94 +20,76 @@ public class Bow : MonoBehaviour
 	private Vector2 nockStartPos = Vector2.zero;
 	private Rigidbody arrow = null;
 	private bool waitingPostShot = false;
-	private float cachedInputY = 0;
 
 	private void Update()
 	{
 		var inputPos = Input.mousePosition;
 		bool attemptingToNock = Input.GetMouseButton(0);
 
-		// Skip post shot wait if the player wants to nock an arrow or move camera down,
-		// because the player is not trying to move the camera back to pre-nock position.
-		if (attemptingToNock || inputPos.y < cachedInputY)
-		{
-			waitingPostShot = false;
-		}
-
-		if (arrow == null && !waitingPostShot)
+		if (arrow == null && attemptingToNock)
 		{
 			arrow = Instantiate(arrowPrefab, arrowContainer);
 			arrow.transform.localPosition = Vector3.zero;
 		}
 
+		// If the player pulls the mouse above where they starting nocking the arrow, start measuring from the new position.
+		if (inputPos.y > nockStartPos.y)
+		{
+			nockStartPos.y = inputPos.y;
+		}
+
 		var pullback = Mathf.Clamp01((nockStartPos.y - inputPos.y) / (Screen.height * screenPortionForMax));
 
-			var pullDistance = minPull;
+		var pullDistance = minPull;
 
-			if (nocked)
+		if (nocked)
+		{
+			pullDistance = Mathf.Lerp(minPull, maxPull, pullback);
+		}
+
+		if (arrow != null)
+		{
+			var arrowLocalScale = arrow.transform.localScale;
+			arrowLocalScale.z = pullDistance;
+			arrow.transform.localScale = arrowLocalScale;
+			arrow.transform.localRotation = Quaternion.identity;
+		}
+
+		if (attemptingToNock)
+		{
+			if (!nocked && arrow != null)
 			{
-				pullDistance = Mathf.Lerp(minPull, maxPull, pullback);
+				nocked = true;
+				nockStartPos = inputPos;
+				reticle.Lock();
+				arrow.transform.forward = transform.forward;
+			}
+		}
+		else if (nocked)
+		{
+			if (pullback < requiredPullBack)
+			{
+				if (arrow != null)
+				{
+					Destroy(arrow.gameObject);
+					arrow = null;
+				}
 			}
 
 			if (arrow != null)
 			{
-				var arrowLocalScale = arrow.transform.localScale;
-				arrowLocalScale.z = pullDistance;
-				arrow.transform.localScale = arrowLocalScale;
-				arrow.transform.localRotation = Quaternion.identity;
+				var shotForce = Mathf.Lerp(minShotForce, maxShotForce, pullback);
+				arrow.transform.parent = null;
+
+				arrow.transform.forward = transform.forward;
+				arrow.isKinematic = false;
+				arrow.velocity = body.velocity;
+				arrow.AddForce(transform.forward * shotForce, ForceMode.Impulse);
+				arrow = null;
 			}
 
-			if (attemptingToNock)
-			{
-				if (!nocked && arrow != null)
-				{
-					nocked = true;
-					nockStartPos = inputPos;
-					reticle.Lock();
-					arrow.transform.forward = transform.forward;
-				}
-			}
-			else if (nocked)
-			{
-				if (pullback < requiredPullBack)
-				{
-					if (arrow != null)
-					{
-						Destroy(arrow.gameObject);
-						arrow = null;
-					}
-				}
-
-				if (arrow != null)
-				{
-					var shotForce = Mathf.Lerp(minShotForce, maxShotForce, pullback);
-					arrow.transform.parent = null;
-
-					arrow.transform.forward = transform.forward;
-					arrow.isKinematic = false;
-					arrow.velocity = body.velocity;
-					arrow.AddForce(transform.forward * shotForce, ForceMode.Impulse);
-					arrow = null;
-				}
-
-				nocked = false;
-				StartCoroutine(RecoverAfterShot());
-			}
-
-			cachedInputY = inputPos.y;
-	}
-
-	private IEnumerator RecoverAfterShot()
-	{
-		reticle.StartRecover();
-
-		waitingPostShot = true;
-		while (Input.mousePosition.y < nockStartPos.y && waitingPostShot)
-		{
-			yield return null;
+			nocked = false;
+			reticle.Unlock();
 		}
-		waitingPostShot = false;
-
-		reticle.EndRecover();
 	}
 }
