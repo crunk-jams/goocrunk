@@ -9,6 +9,11 @@ public class GotoScene : MonoBehaviour
 
 	public void Event_GotoScene()
 	{
+		if (string.IsNullOrEmpty(scene))
+		{
+			scene = SceneManager.GetActiveScene().name;
+		}
+
 		SceneManager.LoadScene(scene);
 	}
 }
