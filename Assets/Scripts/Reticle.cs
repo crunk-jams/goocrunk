@@ -45,13 +45,13 @@ public class Reticle : MonoBehaviour
 		{
 			float verticalRotation = Input.GetAxis("Mouse Y") * Time.deltaTime * camSensitivity;
 			verticalRotation = Mathf.Clamp(verticalRotation, -90, 90);
-			cam.transform.Rotate(-cam.Player.right * verticalRotation);
+			cam.transform.Rotate(-cam.Player.right * verticalRotation, Space.World);
 		}
 
 		// Allow horizontal rotation, and all rotation clamping at all times.
 		float horizontalRotation = Input.GetAxis("Mouse X") * Time.deltaTime * camSensitivity;
 		horizontalRotation = Mathf.Clamp(horizontalRotation, -90, 90);
-		cam.transform.Rotate(cam.Player.up * horizontalRotation);
+		cam.transform.Rotate(cam.Player.up * horizontalRotation, Space.World);
 
 		cam.transform.LookAt(cam.transform.position + cam.transform.forward, cam.Player.up);
 
@@ -65,14 +65,14 @@ public class Reticle : MonoBehaviour
 		if (horizontalTurnTotal > horizontalTurnMax)
 		{
 			var sign = dotRight >= 0 ? 1 : -1;
-			cam.transform.Rotate(cam.Player.up * (horizontalTurnMax - horizontalTurnTotal) * sign);
+			cam.transform.Rotate(cam.Player.up * (horizontalTurnMax - horizontalTurnTotal) * sign, Space.World);
 		}
 
 		var verticalTurnTotal = Mathf.Abs(90 - (Mathf.Acos(dotUp) * Mathf.Rad2Deg));
 		if (verticalTurnTotal > verticalTurnMax)
 		{
 			var sign = dotUp >= 0 ? 1 : -1;
-			cam.transform.Rotate(-cam.Player.right * (verticalTurnMax - verticalTurnTotal) * sign);
+			cam.transform.Rotate(-cam.Player.right * (verticalTurnMax - verticalTurnTotal) * sign, Space.World);
 		}
 	}
 

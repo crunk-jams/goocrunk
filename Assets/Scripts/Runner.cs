@@ -35,7 +35,7 @@ public class Runner : MonoBehaviour
 			resetPosition = checkpoint.transform.position;
 		}
 		transform.position = resetPosition;*/
-		SceneManager.LoadScene("Level_1");
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	float DebugUpdateSpeedIntensity(float intensity)
