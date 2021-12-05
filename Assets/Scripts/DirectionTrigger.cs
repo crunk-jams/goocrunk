@@ -17,6 +17,12 @@ public class DirectionTrigger : MonoBehaviour
 		if (target != null && target == playerCamera.Player.transform)
 		{
 			target.LookAt(target.position + endDirection.forward, endDirection.up);
+
+			// Hack to turn player instantly when using TeleTargets
+			if (turnDuration < 0.001)
+			{
+				playerCamera.transform.rotation = target.rotation;
+			}
 		}
 	}
 

@@ -169,5 +169,5 @@ MonoBehaviour:
   maxShotForce: 100
   minPull: 0
   maxPull: 1
-  requiredPullBack: 0.1
+  requiredPullBack: 0.05
   screenPortionForMax: 0.25
