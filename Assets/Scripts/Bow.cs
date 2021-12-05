@@ -81,10 +81,11 @@ public class Bow : MonoBehaviour
 				var shotForce = Mathf.Lerp(minShotForce, maxShotForce, pullback);
 				arrow.transform.parent = null;
 
-				arrow.transform.forward = transform.forward;
+				var toReticle = (reticle.transform.position - transform.position).normalized;
+				arrow.transform.forward = toReticle;
 				arrow.isKinematic = false;
 				arrow.velocity = body.velocity;
-				arrow.AddForce(transform.forward * shotForce, ForceMode.Impulse);
+				arrow.AddForce(toReticle * shotForce, ForceMode.Impulse);
 				arrow = null;
 			}
 
