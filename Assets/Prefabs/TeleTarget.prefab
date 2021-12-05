@@ -387,6 +387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endDirection: {fileID: 4930038454547073022}
   turnDuration: 0
+  pathWidth: 5
 --- !u!1 &6466462010818777561
 GameObject:
   m_ObjectHideFlags: 0

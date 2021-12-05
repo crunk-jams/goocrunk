@@ -1,6 +1,8 @@
 using System;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Vector3 = UnityEngine.Vector3;
 
 public class Runner : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class Runner : MonoBehaviour
 	[SerializeField] private float strafeSpeed = 10000;
 	[Range(0f, 1f)] private float speedIntensity = 0;
 	private int grounded = 0;
+
+	private Vector3 pathStart = Vector3.zero;
+	private Vector3 pathDirection = Vector3.zero;
+	private float pathWidth = 0;
 
 	public Checkpoint checkpoint = null;
 
@@ -29,9 +35,33 @@ public class Runner : MonoBehaviour
 		body.velocity = (transform.forward * speed) + new Vector3(0, body.velocity.y, 0);
 
 		var strafe = Input.GetAxis("Horizontal");
-		if (Mathf.Abs(strafeSpeed) > 0.001 && grounded > 0)
+		if (Mathf.Abs(strafeSpeed) > 0.001)
 		{
-			body.AddForce(transform.right * strafe * strafeSpeed * Time.deltaTime);
+			body.velocity += transform.right * strafe * strafeSpeed;
+		}
+
+		KeepOnPath();
+	}
+
+	public void SetPathStats(Vector3 start, Vector3 direction, float width)
+	{
+		pathStart = start;
+		pathDirection = direction;
+		pathWidth = width;
+	}
+
+	private void KeepOnPath()
+	{
+		var pathRight = Vector3.Cross(transform.up, pathDirection).normalized;
+		var onPathRight = Vector3.Project(transform.position - pathStart, pathRight);
+		var pathHalfWidth = pathWidth / 2;
+		if (onPathRight.sqrMagnitude > pathHalfWidth * pathHalfWidth)
+		{
+			var sign = Vector3.Dot(onPathRight, pathRight) >= 0 ? 1 : -1;
+			var newPos = transform.position;
+			newPos -= onPathRight;
+			newPos += pathRight * pathHalfWidth * sign;
+			transform.position = newPos;
 		}
 	}
 
