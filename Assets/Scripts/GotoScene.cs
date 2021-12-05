@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GotoScene : MonoBehaviour
 {
-	[SerializeField] private string scene = null;
+	public string scene = null;
 
 	public void Event_GotoScene()
 	{
