@@ -6,6 +6,7 @@ public class Runner : MonoBehaviour
 	[SerializeField] private Rigidbody body;
 	[SerializeField] private float minSpeed = 10;
 	[SerializeField] private float maxSpeed = 100;
+	[SerializeField] private float strafeSpeed = 10000;
 	[Range(0f, 1f)] private float speedIntensity = 0;
 
 	public Checkpoint checkpoint = null;
@@ -24,6 +25,12 @@ public class Runner : MonoBehaviour
 #endif
 
 		body.velocity = (transform.forward * speed) + new Vector3(0, body.velocity.y, 0);
+
+		var strafe = Input.GetAxis("Horizontal");
+		if (Mathf.Abs(strafeSpeed) > 0.001)
+		{
+			body.AddForce(transform.right * strafe * strafeSpeed * Time.deltaTime);
+		}
 	}
 
 	public void ResetToCheckpoint()

@@ -53,6 +53,7 @@ MonoBehaviour:
   body: {fileID: 775722051147224710}
   minSpeed: 20
   maxSpeed: 60
+  strafeSpeed: 10000
   checkpoint: {fileID: 0}
 --- !u!114 &2445290212270299204
 MonoBehaviour:
