@@ -1846,6 +1846,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1526066874}
     m_Modifications:
+    - target: {fileID: 68104819576664895, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6622008eb0c6fd04eb492449148007cd, type: 2}
+    - target: {fileID: 2443715747362742260, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0177
+      objectReference: {fileID: 0}
+    - target: {fileID: 2443715747362742260, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0177
+      objectReference: {fileID: 0}
+    - target: {fileID: 2443715747362742260, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0177
+      objectReference: {fileID: 0}
+    - target: {fileID: 4446053771616992463, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149846272070755309, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 77cdfd42d289dc44ca844eb5bc7241a2, type: 2}
+    - target: {fileID: 7247242497944833944, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 77cdfd42d289dc44ca844eb5bc7241a2, type: 2}
+    - target: {fileID: 7568722749519775803, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 77cdfd42d289dc44ca844eb5bc7241a2, type: 2}
+    - target: {fileID: 8347280983997051761, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6622008eb0c6fd04eb492449148007cd, type: 2}
+    - target: {fileID: 8562554347817138793, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 86cf57d315a255448a208cf51b1a796a, type: 2}
     - target: {fileID: 9014140739114269029, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
       propertyPath: m_Name
       value: Gun
