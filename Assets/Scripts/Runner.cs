@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,7 @@ public class Runner : MonoBehaviour
 	[SerializeField] private float maxSpeed = 100;
 	[SerializeField] private float strafeSpeed = 10000;
 	[Range(0f, 1f)] private float speedIntensity = 0;
+	private int grounded = 0;
 
 	public Checkpoint checkpoint = null;
 
@@ -27,7 +29,7 @@ public class Runner : MonoBehaviour
 		body.velocity = (transform.forward * speed) + new Vector3(0, body.velocity.y, 0);
 
 		var strafe = Input.GetAxis("Horizontal");
-		if (Mathf.Abs(strafeSpeed) > 0.001)
+		if (Mathf.Abs(strafeSpeed) > 0.001 && grounded > 0)
 		{
 			body.AddForce(transform.right * strafe * strafeSpeed * Time.deltaTime);
 		}
@@ -71,5 +73,28 @@ public class Runner : MonoBehaviour
 		}
 
 		return speed;
+	}
+
+	private void OnCollisionEnter(Collision other)
+	{
+		switch (LayerMask.LayerToName(other.gameObject.layer))
+		{
+			case "TrackFloor":
+				grounded++;
+				break;
+			case "Obstacle":
+				ResetToCheckpoint();
+				break;
+		}
+	}
+
+	private void OnCollisionExit(Collision other)
+	{
+		switch (LayerMask.LayerToName(other.gameObject.layer))
+		{
+			case "TrackFloor":
+				grounded--;
+				break;
+		}
 	}
 }
