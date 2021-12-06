@@ -22,6 +22,14 @@ public class Reticle : MonoBehaviour
 	[SerializeField] private float horizontalTurnMax = 45;
 	[SerializeField] private float verticalTurnMax = 45;
 
+	[SerializeField] private GameObject apexIndicator;
+	[SerializeField] private GameObject shortArcIndicator;
+	[SerializeField] private GameObject longArcIndicator;
+	[HideInInspector] public float pullStrength = 0;
+	[HideInInspector] public bool shotReady = false;
+
+
+
 	void Start()
 	{
 		Cursor.visible = false;
@@ -34,9 +42,15 @@ public class Reticle : MonoBehaviour
 		{
 			case AimState.FreeAim:
 				Cursor.lockState = CursorLockMode.Locked;
+				apexIndicator.SetActive(false);
 				break;
 			case AimState.NockLocked:
 				Cursor.lockState = CursorLockMode.Confined;
+				apexIndicator.SetActive(shotReady);
+				pullStrength = Mathf.Sqrt(Mathf.Clamp01(pullStrength));
+				apexIndicator.transform.position =
+					(shortArcIndicator.transform.position * (1- pullStrength)) +
+					(longArcIndicator.transform.position * pullStrength);
 				break;
 		}
 

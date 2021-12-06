@@ -7,6 +7,11 @@ public class Arrow : MonoBehaviour
 {
 	private Rigidbody body = null;
 	private Collider bodyCollider = null;
+
+	private Vector3 cachedPos = new Vector3(0, -1000, 0);
+
+	[SerializeField] private bool testApex;
+
 	private void Start()
 	{
 		body = GetComponent<Rigidbody>();
@@ -14,12 +19,31 @@ public class Arrow : MonoBehaviour
 		bodyCollider.enabled = false;
 	}
 
+
 	private void Update()
 	{
 		var loosed = body != null && body.useGravity && !body.isKinematic;
 		if (loosed && body.velocity.sqrMagnitude > 0)
 		{
 			transform.forward = body.velocity.normalized;
+
+			// Test apex
+			#if UNITY_EDITOR
+			if (testApex)
+			{
+				if (transform.position.y < cachedPos.y)
+				{
+					Debug.Break();
+					transform.transform.position = cachedPos;
+					body.isKinematic = true;
+					cachedPos.y = -1000;
+				}
+				else
+				{
+					cachedPos = transform.position;
+				}
+			}
+			#endif
 		}
 
 		if (bodyCollider != null)

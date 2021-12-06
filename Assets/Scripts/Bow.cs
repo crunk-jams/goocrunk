@@ -11,6 +11,7 @@ public class Bow : MonoBehaviour
 	[SerializeField] private Reticle reticle;
 	[SerializeField] private float minShotForce = 10;
 	[SerializeField] private float maxShotForce = 50;
+	[SerializeField] private float baseArrowSize = 0.05f;
 	[SerializeField] private float minPull = 0f;
 	[SerializeField] private float maxPull = 0.5f;
 	[SerializeField] private float requiredPullBack = 0.1f;
@@ -40,6 +41,9 @@ public class Bow : MonoBehaviour
 
 		var pullback = Mathf.Clamp01((nockStartPos.y - inputPos.y) / (Screen.height * screenPortionForMax));
 
+		reticle.pullStrength = pullback;
+		reticle.shotReady = pullback >= requiredPullBack;
+
 		var pullDistance = minPull;
 
 		if (nocked)
@@ -50,7 +54,8 @@ public class Bow : MonoBehaviour
 		if (arrow != null)
 		{
 			var arrowLocalScale = arrow.transform.localScale;
-			arrowLocalScale.z = pullDistance;
+			var arrowSize = baseArrowSize + ((1 - baseArrowSize) * pullDistance);
+			arrowLocalScale.z = arrowSize;
 			arrow.transform.localScale = arrowLocalScale;
 			arrow.transform.localRotation = Quaternion.identity;
 		}
