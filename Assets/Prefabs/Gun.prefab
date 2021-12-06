@@ -240,6 +240,7 @@ MonoBehaviour:
   maxPull: 1
   requiredPullBack: 0.01
   screenPortionForMax: 0.25
+  gooTimeScale: 0.3
 --- !u!95 &2250431444691799629
 Animator:
   serializedVersion: 4

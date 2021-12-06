@@ -54,16 +54,18 @@ public class Reticle : MonoBehaviour
 				break;
 		}
 
+		var scaledSensitivity = camSensitivity / Time.timeScale;
+
 		// Allow vertical rotation while aiming freely. After shooting the player needs to return mouse to it's old y.
 		if (state == AimState.FreeAim)
 		{
-			float verticalRotation = Input.GetAxis("Mouse Y") * Time.deltaTime * camSensitivity;
+			float verticalRotation = Input.GetAxis("Mouse Y") * Time.deltaTime * scaledSensitivity;
 			verticalRotation = Mathf.Clamp(verticalRotation, -90, 90);
 			cam.transform.Rotate(-cam.Player.right * verticalRotation, Space.World);
 		}
 
 		// Allow horizontal rotation, and all rotation clamping at all times.
-		float horizontalRotation = Input.GetAxis("Mouse X") * Time.deltaTime * camSensitivity;
+		float horizontalRotation = Input.GetAxis("Mouse X") * Time.deltaTime * scaledSensitivity;
 		horizontalRotation = Mathf.Clamp(horizontalRotation, -90, 90);
 		cam.transform.Rotate(cam.Player.up * horizontalRotation, Space.World);
 

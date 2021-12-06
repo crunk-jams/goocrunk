@@ -20,6 +20,7 @@ public class Bow : MonoBehaviour
 	[SerializeField] private float maxPull = 0.5f;
 	[SerializeField] private float requiredPullBack = 0.1f;
 	[SerializeField] private float screenPortionForMax = 0.5f;
+	[SerializeField] private float gooTimeScale = 0.5f;
 
 	private bool nocked = false;
 	private Vector2 nockStartPos = Vector2.zero;
@@ -73,9 +74,14 @@ public class Bow : MonoBehaviour
 				reticle.Lock();
 				arrow.transform.forward = transform.forward;
 			}
+
+			Time.timeScale = gooTimeScale;
 		}
 		else if (nocked)
 		{
+			Time.timeScale = 1;
+
+
 			if (pullback < requiredPullBack)
 			{
 				if (arrow != null)
