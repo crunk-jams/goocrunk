@@ -2738,10 +2738,6 @@ PrefabInstance:
       propertyPath: reticle
       value: 
       objectReference: {fileID: 312373844}
-    - target: {fileID: 9014140739114269051, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
-      propertyPath: gooTimeScale
-      value: 0.25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c49e3f1d612e48ab8629743553bd9c5, type: 3}
 --- !u!4 &1718228927 stripped
