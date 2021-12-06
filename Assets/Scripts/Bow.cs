@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Bow : MonoBehaviour
 {
+	[SerializeField] private Animator anim = null;
 	[SerializeField] private Rigidbody body = null;
-	[SerializeField] private Rigidbody arrowPrefab = null;
+	[SerializeField] private Rigidbody nockedArrowPrefab = null;
+	[SerializeField] private Rigidbody shotArrowPrefab = null;
+
 	[SerializeField] private Transform arrowContainer = null;
 	[SerializeField] private Reticle reticle;
 	[SerializeField] private float minShotForce = 10;
@@ -29,7 +33,7 @@ public class Bow : MonoBehaviour
 
 		if (arrow == null && attemptingToNock)
 		{
-			arrow = Instantiate(arrowPrefab, arrowContainer);
+			arrow = Instantiate(nockedArrowPrefab, arrowContainer);
 			arrow.transform.localPosition = Vector3.zero;
 		}
 
@@ -83,8 +87,24 @@ public class Bow : MonoBehaviour
 
 			if (arrow != null)
 			{
-				var shotForce = Mathf.Lerp(minShotForce, maxShotForce, pullback);
+				if (Random.Range(0f, 1f) < 0.5f)
+				{
+					anim.SetTrigger("Shoot");
+				}
+				else
+				{
+					anim.SetTrigger("Shoot2");
+				}
+
+				var oldArrow = arrow.transform;
+				arrow = Instantiate(shotArrowPrefab, arrowContainer);
+				arrow.transform.localPosition = oldArrow.localPosition;
+				arrow.transform.localRotation = oldArrow.localRotation;
+				arrow.transform.localScale = oldArrow.localScale;
 				arrow.transform.parent = null;
+				Destroy(oldArrow.gameObject);
+
+				var shotForce = Mathf.Lerp(minShotForce, maxShotForce, pullback);
 
 				var toReticle = (reticle.transform.position - transform.position).normalized;
 				arrow.transform.forward = toReticle;

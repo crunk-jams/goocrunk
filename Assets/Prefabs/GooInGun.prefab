@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1414470198544046858}
   - component: {fileID: -1163309702010014654}
   m_Layer: 7
-  m_Name: GunGoo
+  m_Name: GooInGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -227,8 +227,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94da9220ce1fb459385daf21bdbaba61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 2250431444691799629}
   body: {fileID: 0}
-  arrowPrefab: {fileID: 2003077946542496561, guid: 340088c54093942d2b3c00ddca2dde55, type: 3}
+  nockedArrowPrefab: {fileID: 2003077946542496561, guid: 340088c54093942d2b3c00ddca2dde55, type: 3}
+  shotArrowPrefab: {fileID: 1972466887053653879, guid: 2a4d23039c4494d8da5719558dd35767, type: 3}
   arrowContainer: {fileID: 1389076887}
   reticle: {fileID: 0}
   minShotForce: 10
