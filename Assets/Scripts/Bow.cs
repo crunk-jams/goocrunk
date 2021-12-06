@@ -35,6 +35,7 @@ public class Bow : MonoBehaviour
 		if (arrow == null && attemptingToNock)
 		{
 			arrow = Instantiate(nockedArrowPrefab, arrowContainer);
+			arrow.gameObject.SetActive(true);
 			arrow.transform.localPosition = Vector3.zero;
 		}
 
@@ -104,6 +105,7 @@ public class Bow : MonoBehaviour
 
 				var oldArrow = arrow.transform;
 				arrow = Instantiate(shotArrowPrefab, arrowContainer);
+				arrow.gameObject.SetActive(true);
 				arrow.transform.localPosition = oldArrow.localPosition;
 				arrow.transform.localRotation = oldArrow.localRotation;
 				arrow.transform.localScale = oldArrow.localScale;

@@ -234,7 +234,7 @@ MonoBehaviour:
   arrowContainer: {fileID: 1389076887}
   reticle: {fileID: 0}
   minShotForce: 10
-  maxShotForce: 50
+  maxShotForce: 75
   baseArrowSize: 0.1
   minPull: 0
   maxPull: 1
