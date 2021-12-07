@@ -11,13 +11,18 @@ public class Runner : MonoBehaviour
 	[SerializeField] private float maxSpeed = 100;
 	[SerializeField] private float strafeSpeed = 10000;
 	[Range(0f, 1f)] private float speedIntensity = 0;
-	private int grounded = 0;
+	public int grounded = 0;
 
 	private Vector3 pathStart = Vector3.zero;
 	private Vector3 pathDirection = Vector3.zero;
 	private float pathWidth = 0;
 
-	public Checkpoint checkpoint = null;
+	private CheckpointMessage savedCheckpoint = null;
+
+	private void Start()
+	{
+		GotoCheckpointIfAllowed();
+	}
 
 	void Update()
 	{
@@ -32,7 +37,16 @@ public class Runner : MonoBehaviour
 		speed = DebugUpdateSpeed(speed);
 #endif
 
-		body.velocity = (transform.forward * speed) + new Vector3(0, body.velocity.y, 0);
+		if (grounded >= 1)
+		{
+			body.velocity = (transform.forward * speed);
+		}
+		else
+		{
+			var noUpForward = transform.forward;
+			noUpForward.y = 0;
+			body.velocity = (noUpForward * speed) + new Vector3(0, body.velocity.y, 0);
+		}
 
 		var strafe = Input.GetAxis("Horizontal");
 		if (Mathf.Abs(strafeSpeed) > 0.001)
@@ -67,14 +81,43 @@ public class Runner : MonoBehaviour
 
 	public void ResetToCheckpoint()
 	{
-		/*body.velocity = Vector3.zero;
-		var resetPosition = Vector3.zero;
-		if (checkpoint != null)
-		{
-			resetPosition = checkpoint.transform.position;
-		}
-		transform.position = resetPosition;*/
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
+
+	public void GotoCheckpointIfAllowed()
+	{
+		var checkpointMessage = FindObjectOfType<CheckpointMessage>();
+		if (checkpointMessage != null)
+		{
+			if (checkpointMessage.level == SceneManager.GetActiveScene().name)
+			{
+				savedCheckpoint = checkpointMessage;
+				transform.position = checkpointMessage.position;
+				transform.rotation = checkpointMessage.rotation;
+				speedIntensity = checkpointMessage.speedIntensity;
+				pathStart = checkpointMessage.pathStart = pathStart;
+				pathDirection = checkpointMessage.pathDirection;
+				pathWidth = checkpointMessage.pathWidth;
+			}
+			else
+			{
+				Destroy(checkpointMessage.gameObject);
+			}
+		}
+	}
+
+	public void SetCheckpoint(Checkpoint checkpoint)
+	{
+		var checkpointMessage = new GameObject().AddComponent<CheckpointMessage>();
+		checkpointMessage.level = SceneManager.GetActiveScene().name;
+		checkpointMessage.position = transform.position;
+		checkpointMessage.rotation = transform.rotation;
+		checkpointMessage.speedIntensity = speedIntensity;
+		checkpointMessage.pathStart = pathStart;
+		checkpointMessage.pathDirection = pathDirection;
+		checkpointMessage.pathWidth = pathWidth;
+
+		savedCheckpoint = checkpointMessage;
 	}
 
 	float DebugUpdateSpeedIntensity(float intensity)
@@ -123,8 +166,17 @@ public class Runner : MonoBehaviour
 		switch (LayerMask.LayerToName(other.gameObject.layer))
 		{
 			case "TrackFloor":
-				grounded--;
+				grounded = Mathf.Min(grounded, 0);
 				break;
+		}
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		var checkpoint = other.GetComponent<Checkpoint>();
+		if (checkpoint != null)
+		{
+			SetCheckpoint(checkpoint);
 		}
 	}
 }

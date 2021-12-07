@@ -34,6 +34,7 @@ public class Teleportee : MonoBehaviour
 		var teleportSpeed = (toTargetMag / teleportDuration) * Time.deltaTime;
 
 		runner.enabled = false;
+		runner.grounded = 0;
 		body.isKinematic = true;
 		foreach (var col in colliders)
 		{
