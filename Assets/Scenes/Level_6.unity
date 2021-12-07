@@ -1720,7 +1720,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 15.4
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 7193282783973445042, guid: 21ddb28365dc2418494e1c37a9e77a43, type: 3}
       propertyPath: m_Size.x
       value: 3.28
@@ -1737,8 +1736,6 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 3.82
       objectReference: {fileID: 0}
-=======
->>>>>>> ed64e3b2cfe7874846e0f321112c2e79008deb3f
     - target: {fileID: 7337190744591579736, guid: 21ddb28365dc2418494e1c37a9e77a43, type: 3}
       propertyPath: m_Enabled
       value: 1
