@@ -53,6 +53,7 @@ MonoBehaviour:
   minSpeed: 20
   maxSpeed: 60
   strafeSpeed: 10
+  grounded: 0
 --- !u!114 &2445290212270299204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,8 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDuration: 0.5
   body: {fileID: 775722051147224710}
-  colliders:
-  - {fileID: 775722051147224705}
+  colliders: []
   runner: {fileID: 775722051147224717}
 --- !u!114 &2957057820725711673
 MonoBehaviour:
