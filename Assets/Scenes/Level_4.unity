@@ -2861,10 +2861,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 775722051147224717, guid: e1e3614f9b2d94b50b9daddac6e85d1c, type: 3}
-      propertyPath: strafeSpeed
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1e3614f9b2d94b50b9daddac6e85d1c, type: 3}
 --- !u!1001 &2244798410119721639
