@@ -12,7 +12,7 @@ public class PlayerCamera : MonoBehaviour
 	private float turnDuration = 1;
 	private float turnElapsed = 0;
 
-	private void Start()
+	private void Awake()
 	{
 		offset = transform.position - player.transform.position;
 	}
