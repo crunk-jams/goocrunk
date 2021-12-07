@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b31ffeba9f6645c0a399925a5498ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportDuration: 0.2
+  teleportDuration: 0.5
   body: {fileID: 775722051147224710}
   colliders:
   - {fileID: 775722051147224705}
