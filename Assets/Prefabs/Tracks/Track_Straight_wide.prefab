@@ -75,6 +75,14 @@ PrefabInstance:
       propertyPath: pathWidth
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 6375938753962594445, guid: 194dfc4debe6144f888bcd0442f315fb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6375938753962594445, guid: 194dfc4debe6144f888bcd0442f315fb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7980474461705437177, guid: 194dfc4debe6144f888bcd0442f315fb, type: 3}
       propertyPath: m_Mesh
       value: 
