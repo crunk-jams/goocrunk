@@ -234,13 +234,13 @@ MonoBehaviour:
   arrowContainer: {fileID: 1389076887}
   reticle: {fileID: 0}
   minShotForce: 10
-  maxShotForce: 50
+  maxShotForce: 75
   baseArrowSize: 0.1
   minPull: 0
   maxPull: 1
   requiredPullBack: 0.01
   screenPortionForMax: 0.25
-  gooTimeScale: 0.3
+  gooTimeScale: 0.25
 --- !u!95 &2250431444691799629
 Animator:
   serializedVersion: 4
