@@ -21,16 +21,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Gun-Particles
-  m_Shader: {fileID: -6465566751694194690, guid: f48391ebe58832b4b966740e5598a2a1, type: 3}
+  m_Shader: {fileID: 10721, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Transparent
-  disabledShaderPasses:
-  - DepthOnly
+  stringTagMap: {}
+  disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -102,6 +100,7 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _Blend: 0
     - _BlendOp: 0
+    - _BottomLine: 0.35
     - _BumpScale: 1
     - _CameraFadingEnabled: 0
     - _CameraFarFadeDistance: 2
@@ -118,7 +117,7 @@ Material:
     - _DistortionEnabled: 0
     - _DistortionStrength: 1
     - _DistortionStrengthScaled: 0
-    - _Distortion_Amount: 0.08
+    - _Distortion_Amount: 0.3
     - _Distortion_Scale: 5
     - _DstBlend: 10
     - _EmissionEnabled: 0
@@ -129,6 +128,7 @@ Material:
     - _GlossyReflections: 1
     - _InvFade: 1
     - _LightingEnabled: 0
+    - _Metalic: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -137,6 +137,7 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Scale: 3
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
@@ -144,12 +145,15 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 5
     - _Surface: 1
+    - _TopLine: 0.65
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
+    - _BaseColor: {r: 1, g: 0, b: 0, a: 1}
+    - _BottomColor: {r: 0.6792453, g: 0, b: 0, a: 1}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 0.12319462, b: 0, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
@@ -158,6 +162,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _TopColor: {r: 1, g: 0.3915094, b: 0.3915094, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7281211186316278749
 MonoBehaviour:
