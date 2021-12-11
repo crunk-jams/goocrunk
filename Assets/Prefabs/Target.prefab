@@ -5170,7 +5170,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &7236593590551487177
 Animator:
@@ -5253,6 +5253,7 @@ MonoBehaviour:
   onHit:
     m_PersistentCalls:
       m_Calls: []
+  anim: {fileID: 7236593590551487177}
 --- !u!1 &2585607833416080562
 GameObject:
   m_ObjectHideFlags: 0

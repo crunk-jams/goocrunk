@@ -7,10 +7,29 @@ using UnityEngine.Events;
 public class Target : MonoBehaviour
 {
 	[SerializeField] private UnityEvent onHit = null;
+	[SerializeField] private Animator anim = null;
 
 	public virtual void HitRespond()
 	{
 		onHit.Invoke();
-		Destroy(gameObject);
+
+		if (anim != null)
+		{
+			anim.SetTrigger("Broken");
+			Debug.Break();
+
+			var colliders = GetComponentsInChildren<Collider>();
+			if (colliders != null && colliders.Length > 0)
+			{
+				foreach (var col in colliders)
+				{
+					col.enabled = false;
+				}
+			}
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
 	}
 }
