@@ -166,6 +166,7 @@ public class Runner : MonoBehaviour
 		switch (LayerMask.LayerToName(other.gameObject.layer))
 		{
 			case "TrackFloor":
+				grounded--;
 				grounded = Mathf.Max(grounded, 0);
 				break;
 		}
