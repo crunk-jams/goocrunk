@@ -45,7 +45,8 @@ public class Reticle : MonoBehaviour
 				apexIndicator.SetActive(false);
 				break;
 			case AimState.NockLocked:
-				Cursor.lockState = CursorLockMode.Confined;
+				//Cursor.lockState = CursorLockMode.Confined;
+				Cursor.lockState = CursorLockMode.Locked;
 				apexIndicator.SetActive(shotReady);
 				pullStrength = Mathf.Sqrt(Mathf.Clamp01(pullStrength));
 				apexIndicator.transform.position =
