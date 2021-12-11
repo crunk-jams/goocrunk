@@ -194,6 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2893921691848089057}
   - component: {fileID: 4093213299067179649}
+  - component: {fileID: 1632286688495177120}
   m_Layer: 0
   m_Name: Obstacle_Fan
   m_TagString: Untagged
@@ -237,6 +238,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1632286688495177120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5024314424557200674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1136b557a7264b89afa5052c421f879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 4093213299067179649}
 --- !u!1 &5430218101614295142
 GameObject:
   m_ObjectHideFlags: 0

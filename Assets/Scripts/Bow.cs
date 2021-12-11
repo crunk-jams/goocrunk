@@ -24,12 +24,22 @@ public class Bow : MonoBehaviour
 
 	private bool nocked = false;
 	private Vector2 nockStartPos = Vector2.zero;
+	private Vector2 oldMousePos = Vector2.zero;
 	private Rigidbody arrow = null;
 	private bool waitingPostShot = false;
 
-	private void Update()
+		private void Awake()
+		{
+			oldMousePos = Input.mousePosition;
+		}
+
+		private void Update()
 	{
-		var inputPos = Input.mousePosition;
+		var inputPos = oldMousePos + (new Vector2(
+			Input.GetAxis("Mouse X") * Screen.width ,
+			Input.GetAxis("Mouse Y") * Screen.height)); //Input.mousePosition;
+		oldMousePos = inputPos;
+
 		bool attemptingToNock = Input.GetMouseButton(0);
 
 		if (arrow == null && attemptingToNock)
@@ -78,52 +88,54 @@ public class Bow : MonoBehaviour
 
 			Time.timeScale = gooTimeScale;
 		}
-		else if (nocked)
+		else
 		{
 			Time.timeScale = 1;
 
-
-			if (pullback < requiredPullBack)
+			if (nocked)
 			{
+				if (pullback < requiredPullBack)
+				{
+					if (arrow != null)
+					{
+						Destroy(arrow.gameObject);
+						arrow = null;
+					}
+				}
+
 				if (arrow != null)
 				{
-					Destroy(arrow.gameObject);
+					if (Random.Range(0f, 1f) < 0.5f)
+					{
+						anim.SetTrigger("Shoot");
+					}
+					else
+					{
+						anim.SetTrigger("Shoot2");
+					}
+
+					var oldArrow = arrow.transform;
+					arrow = Instantiate(shotArrowPrefab, arrowContainer);
+					arrow.gameObject.SetActive(true);
+					arrow.transform.localPosition = oldArrow.localPosition;
+					arrow.transform.localRotation = oldArrow.localRotation;
+					arrow.transform.localScale = oldArrow.localScale;
+					arrow.transform.parent = null;
+					Destroy(oldArrow.gameObject);
+
+					var shotForce = Mathf.Lerp(minShotForce, maxShotForce, pullback);
+
+					var toReticle = (reticle.transform.position - transform.position).normalized;
+					arrow.transform.forward = toReticle;
+					arrow.isKinematic = false;
+					arrow.velocity = body.velocity;
+					arrow.AddForce(toReticle * shotForce, ForceMode.Impulse);
 					arrow = null;
 				}
+
+				nocked = false;
+				reticle.Unlock();
 			}
-
-			if (arrow != null)
-			{
-				if (Random.Range(0f, 1f) < 0.5f)
-				{
-					anim.SetTrigger("Shoot");
-				}
-				else
-				{
-					anim.SetTrigger("Shoot2");
-				}
-
-				var oldArrow = arrow.transform;
-				arrow = Instantiate(shotArrowPrefab, arrowContainer);
-				arrow.gameObject.SetActive(true);
-				arrow.transform.localPosition = oldArrow.localPosition;
-				arrow.transform.localRotation = oldArrow.localRotation;
-				arrow.transform.localScale = oldArrow.localScale;
-				arrow.transform.parent = null;
-				Destroy(oldArrow.gameObject);
-
-				var shotForce = Mathf.Lerp(minShotForce, maxShotForce, pullback);
-
-				var toReticle = (reticle.transform.position - transform.position).normalized;
-				arrow.transform.forward = toReticle;
-				arrow.isKinematic = false;
-				arrow.velocity = body.velocity;
-				arrow.AddForce(toReticle * shotForce, ForceMode.Impulse);
-				arrow = null;
-			}
-
-			nocked = false;
-			reticle.Unlock();
 		}
 	}
 }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2003077946542496561}
   - component: {fileID: 1414470198544046858}
   - component: {fileID: -1163309702010014654}
+  - component: {fileID: -7261506075211873633}
   m_Layer: 7
   m_Name: GooInGun
   m_TagString: Untagged
@@ -146,3 +147,16 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.4}
+--- !u!114 &-7261506075211873633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003077946542496563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39da7dedd62a74ad0abd6108ab6890a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 2003077946542496561}

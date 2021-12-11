@@ -61,6 +61,7 @@ public class Arrow : MonoBehaviour
 	{
 		Destroy(body);
 		Destroy(bodyCollider);
+		Destroy(GetComponent<TimeKeptBody>());
 
 		var target = other.collider.GetComponentInParent<Target>();
 		if (target != null)

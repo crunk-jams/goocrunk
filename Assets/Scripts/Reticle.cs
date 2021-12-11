@@ -29,15 +29,23 @@ public class Reticle : MonoBehaviour
 	[HideInInspector] public bool shotReady = false;
 
 
+	private TimeKeeper timeKeeper = null;
 
 	void Start()
 	{
 		Cursor.visible = false;
 		offset = transform.localPosition;
+		timeKeeper = FindObjectOfType<TimeKeeper>();
 	}
+
 
 	private void Update()
 	{
+		if (!timeKeeper.HasFocus)
+		{
+			return;
+		}
+
 		switch (state)
 		{
 			case AimState.FreeAim:

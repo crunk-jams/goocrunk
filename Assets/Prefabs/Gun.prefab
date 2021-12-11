@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 9014140739114269050}
   - component: {fileID: 9014140739114269051}
   - component: {fileID: 2250431444691799629}
+  - component: {fileID: 6161686095078803695}
   m_Layer: 6
   m_Name: Gun
   m_TagString: Untagged
@@ -239,7 +240,7 @@ MonoBehaviour:
   minPull: 0
   maxPull: 1
   requiredPullBack: 0.01
-  screenPortionForMax: 0.25
+  screenPortionForMax: 1
   gooTimeScale: 0.25
 --- !u!95 &2250431444691799629
 Animator:
@@ -261,6 +262,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6161686095078803695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9014140739114269029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1136b557a7264b89afa5052c421f879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 2250431444691799629}
 --- !u!1001 &8875900231988487035
 PrefabInstance:
   m_ObjectHideFlags: 0

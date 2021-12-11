@@ -5077,6 +5077,7 @@ GameObject:
   - component: {fileID: 2244798409527617068}
   - component: {fileID: 5959302869933622326}
   - component: {fileID: 7236593590551487177}
+  - component: {fileID: 1686702494855765347}
   m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
@@ -5191,6 +5192,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1686702494855765347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2244798409527617071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1136b557a7264b89afa5052c421f879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 7236593590551487177}
 --- !u!1 &2244798410271461657
 GameObject:
   m_ObjectHideFlags: 0
