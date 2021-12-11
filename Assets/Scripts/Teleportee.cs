@@ -41,20 +41,30 @@ public class Teleportee : MonoBehaviour
 			col.enabled = false;
 		}
 
+		//Debug.Log("START : " + transform.position  + " to " + targetPosition + " at " + teleportSpeed);
+
 		while (true)
 		{
 			if ((transform.position - targetPosition).sqrMagnitude < teleportSpeed * teleportSpeed)
 			{
+				//Debug.Log("BAM");
+				//Debug.Log("END : " + transform.position  + " to " + targetPosition + " at " + teleportSpeed);
 				transform.position = targetPosition;
+				//Debug.Break();
 				break;
 			}
 			else
 			{
+				//Debug.Log("ZOOM");
+
 				transform.position += teleportSpeed * toTargetDir;
 			}
 
 			yield return null;
 		}
+
+		//Debug.Log("FALL");
+
 
 		runner.enabled = true;
 		body.isKinematic = false;

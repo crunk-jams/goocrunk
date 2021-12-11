@@ -49,12 +49,12 @@ public class Runner : MonoBehaviour
 		}
 
 		var strafe = Input.GetAxis("Horizontal");
-		if (Mathf.Abs(strafeSpeed) > 0.001)
+		if (Mathf.Abs(strafeSpeed) > 0.001 && grounded > 0)
 		{
-			body.velocity += transform.right * strafe * strafeSpeed;
+			var strafeForce = transform.right * strafe * strafeSpeed;
+			body.velocity += strafeForce;
+			KeepOnPath(strafeForce);
 		}
-
-		KeepOnPath();
 	}
 
 	public void SetPathStats(Vector3 start, Vector3 direction, float width)
@@ -64,12 +64,12 @@ public class Runner : MonoBehaviour
 		pathWidth = width;
 	}
 
-	private void KeepOnPath()
+	private void KeepOnPath(Vector3 strafe)
 	{
 		var pathRight = Vector3.Cross(transform.up, pathDirection).normalized;
 		var onPathRight = Vector3.Project(transform.position - pathStart, pathRight);
 		var pathHalfWidth = pathWidth / 2;
-		if (onPathRight.sqrMagnitude > pathHalfWidth * pathHalfWidth)
+		if (onPathRight.sqrMagnitude > pathHalfWidth * pathHalfWidth && Vector3.Dot(strafe, onPathRight) > 0)
 		{
 			var sign = Vector3.Dot(onPathRight, pathRight) >= 0 ? 1 : -1;
 			var newPos = transform.position;
@@ -166,7 +166,7 @@ public class Runner : MonoBehaviour
 		switch (LayerMask.LayerToName(other.gameObject.layer))
 		{
 			case "TrackFloor":
-				grounded = Mathf.Min(grounded, 0);
+				grounded = Mathf.Max(grounded, 0);
 				break;
 		}
 	}

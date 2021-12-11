@@ -303,7 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   camSensitivity: 180
-  horizontalTurnMax: 45
+  horizontalTurnMax: 80
   verticalTurnMax: 45
   apexIndicator: {fileID: 8998835305413556071}
   shortArcIndicator: {fileID: 5598684512556027093}
