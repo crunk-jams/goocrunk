@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: goo_Track_Flat3_short
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a276c82c30613544597a733b24bafea2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a276c82c30613544597a733b24bafea2, type: 3}
 --- !u!1001 &6588783921561328976
@@ -139,6 +143,18 @@ PrefabInstance:
     - target: {fileID: 4157623124238946260, guid: 194dfc4debe6144f888bcd0442f315fb, type: 3}
       propertyPath: m_LocalPosition.z
       value: 20.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193356618196432044, guid: 194dfc4debe6144f888bcd0442f315fb, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193356618196432044, guid: 194dfc4debe6144f888bcd0442f315fb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 16.794464
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193356618196432044, guid: 194dfc4debe6144f888bcd0442f315fb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.6
       objectReference: {fileID: 0}
     - target: {fileID: 6325798986837628912, guid: 194dfc4debe6144f888bcd0442f315fb, type: 3}
       propertyPath: m_LocalPosition.z
