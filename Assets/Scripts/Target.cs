@@ -16,7 +16,6 @@ public class Target : MonoBehaviour
 		if (anim != null)
 		{
 			anim.SetTrigger("Broken");
-			Debug.Break();
 
 			var colliders = GetComponentsInChildren<Collider>();
 			if (colliders != null && colliders.Length > 0)
