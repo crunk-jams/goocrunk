@@ -51,11 +51,12 @@ public class DirectionTrigger : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		ForeshadowDirection(other.transform);
+		//ForeshadowDirection(other.transform);
+		GiveDirection(other.transform);
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
-		GiveDirection(other.transform);
+		//GiveDirection(other.transform);
 	}
 }

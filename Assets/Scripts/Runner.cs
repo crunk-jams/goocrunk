@@ -49,12 +49,16 @@ public class Runner : MonoBehaviour
 		}
 
 		var strafe = Input.GetAxis("Horizontal");
-		if (Mathf.Abs(strafeSpeed) > 0.001 && grounded > 0)
+		if (Mathf.Abs(strafe) > 0.001 && grounded > 0)
 		{
 			var strafeForce = transform.right * strafe * strafeSpeed;
 			body.velocity += strafeForce;
 			KeepOnPath(strafeForce);
 		}
+
+		//TODO REMove
+		KeepOnPath(Vector3.right);
+
 	}
 
 	public void SetPathStats(Vector3 start, Vector3 direction, float width)
