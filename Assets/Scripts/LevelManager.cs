@@ -33,6 +33,7 @@ public class LevelManager : MonoBehaviour
 
 		player.transform.position = Vector3.zero;
 		player.transform.rotation = Quaternion.identity;
+		player.grounded = 0;
 		cam.transform.rotation = Quaternion.identity;
 		AudioManager.Instance.ChangedLevel(currentLevel);
 	}
@@ -48,5 +49,14 @@ public class LevelManager : MonoBehaviour
 		currentLevel++;
 
 		BeginLevel();
+
+		var arrows = FindObjectsOfType<Arrow>();
+		for (int i = arrows.Length - 1; i >= 0; i--)
+		{
+			if (arrows[i] != null)
+			{
+				Destroy(arrows[i].gameObject);
+			}
+		}
 	}
 }
