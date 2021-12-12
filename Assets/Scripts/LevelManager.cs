@@ -49,5 +49,14 @@ public class LevelManager : MonoBehaviour
 		currentLevel++;
 
 		BeginLevel();
+
+		var arrows = FindObjectsOfType<Arrow>();
+		for (int i = arrows.Length - 1; i >= 0; i--)
+		{
+			if (arrows[i] != null)
+			{
+				Destroy(arrows[i].gameObject);
+			}
+		}
 	}
 }
