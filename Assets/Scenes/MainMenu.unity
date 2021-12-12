@@ -15604,32 +15604,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &814833248766193975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4286186375142789461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1136b557a7264b89afa5052c421f879, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 2500265901771890252}
---- !u!114 &814833249555153162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4286186375931896168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1136b557a7264b89afa5052c421f879, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 2500265900950285937}
 --- !u!4 &918508900937514211
 Transform:
   m_ObjectHideFlags: 0
@@ -35145,7 +35119,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5173834565967925297}
   - component: {fileID: 2500265901771890252}
-  - component: {fileID: 814833248766193975}
   m_Layer: 11
   m_Name: Root
   m_TagString: Untagged
@@ -35163,7 +35136,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5173834565683027980}
   - component: {fileID: 2500265900950285937}
-  - component: {fileID: 814833249555153162}
   m_Layer: 11
   m_Name: Root
   m_TagString: Untagged
@@ -35233,7 +35205,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4525608768693731209}
-  - component: {fileID: 8278035387432549688}
   m_Layer: 0
   m_Name: Level_1
   m_TagString: Untagged
@@ -40660,7 +40631,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3920644694263546729}
   - component: {fileID: 5987377532286799124}
-  - component: {fileID: 8857195315738731119}
   m_Layer: 11
   m_Name: Root
   m_TagString: Untagged
@@ -60514,18 +60484,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &8278035387432549688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4525608768693731210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1e4c9e27fe544802a2b28c17d618bf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!199 &8396690498321468867
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -60724,18 +60682,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8840840966596105892}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &8840840966596105889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8840840966596105892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3302924b957ba47b2b6f8ea3420dd1cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &8840840966596105890
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -60803,7 +60749,6 @@ GameObject:
   - component: {fileID: 8840840966596105888}
   - component: {fileID: 8840840966596105891}
   - component: {fileID: 8840840966596105890}
-  - component: {fileID: 8840840966596105889}
   m_Layer: 0
   m_Name: WIN (1)
   m_TagString: Untagged
@@ -60827,19 +60772,6 @@ Transform:
   m_Father: {fileID: 4525608768693731209}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8857195315738731119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5394852204093882893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1136b557a7264b89afa5052c421f879, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 5987377532286799124}
 --- !u!1 &8918641546129037768
 GameObject:
   m_ObjectHideFlags: 0
