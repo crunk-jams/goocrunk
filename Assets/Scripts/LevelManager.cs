@@ -33,6 +33,7 @@ public class LevelManager : MonoBehaviour
 
 		player.transform.position = Vector3.zero;
 		player.transform.rotation = Quaternion.identity;
+		player.grounded = 0;
 		cam.transform.rotation = Quaternion.identity;
 		AudioManager.Instance.ChangedLevel(currentLevel);
 	}
