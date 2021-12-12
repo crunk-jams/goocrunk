@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
 
 	public void NextLevel()
 	{
-		if (currentLevel > levels.Length)
+		if (currentLevel >= levels.Length)
 		{
 			SceneManager.LoadScene(endGameScreen);
 			return;
