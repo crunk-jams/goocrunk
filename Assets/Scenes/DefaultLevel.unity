@@ -1553,7 +1553,7 @@ MonoBehaviour:
   - {fileID: -2476619773941810908, guid: f0c7af844d33cb94fbf833dfafe4a381, type: 3}
   player: {fileID: 775722050589223974}
   cam: {fileID: 1526066875}
-  currentLevel: 16
+  currentLevel: 1
 --- !u!1001 &2099284430
 PrefabInstance:
   m_ObjectHideFlags: 0
