@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44232634, g: 0.46804756, b: 0.45786095, a: 1}
+  m_IndirectSpecularColor: {r: 0.4397695, g: 0.46635497, b: 0.45583743, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1894,6 +1894,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1985756436}
+  - component: {fileID: 1985756437}
   m_Layer: 0
   m_Name: LevelAnchor
   m_TagString: Untagged
@@ -1917,6 +1918,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1985756437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985756435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b8617c96a9a45a0828245cd7cb93b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuScene: MainMenu
+  endGameScreen: MainMenu
+  levelAnchor: {fileID: 1985756436}
+  levels:
+  - {fileID: -3842610999007020509, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
+  - {fileID: -4331109309486400029, guid: b044686583823b4469ddf1923a620ebe, type: 3}
+  - {fileID: 8159843091787816277, guid: 63d40c083540ccf4ba6ca867e8d39449, type: 3}
+  - {fileID: -1606837496239133034, guid: 69db70907412f354d885e13c59a1ba36, type: 3}
+  - {fileID: 9008502966980338728, guid: f5b13ba1f95a65c4cb8ccefcea56ed78, type: 3}
+  - {fileID: 4870182584579882665, guid: b7927258612bf0e46846d2765a58768d, type: 3}
+  - {fileID: 990746004871529558, guid: 2b8ba824dd1bab9429d5c197ed876ca5, type: 3}
+  - {fileID: 8517204053518903352, guid: 753b6c9c8a0c42540b24f2d67b9bd1be, type: 3}
+  - {fileID: 3260721355352076393, guid: d95f0116882e8f440b13d475a3b8ea12, type: 3}
+  - {fileID: -2633790598948489011, guid: 18c4e45d11807b349b279bc8ff01fe6f, type: 3}
+  - {fileID: -1738385025694792384, guid: 63cdc094fdc015245a7676904e0fc3f5, type: 3}
+  - {fileID: -3605733245759737459, guid: de956973b89a2074d962df9552715757, type: 3}
+  - {fileID: -3714212360105382883, guid: 5d44902f52cdcb842899a45435a60c9c, type: 3}
+  - {fileID: -6103391350087252540, guid: 4030514da1d200540b70c4617db6e1da, type: 3}
+  - {fileID: 8615149112427907062, guid: 6178cb6338c88f0409711ec1d44b75d8, type: 3}
+  - {fileID: -2476619773941810908, guid: f0c7af844d33cb94fbf833dfafe4a381, type: 3}
+  player: {fileID: 775722050589223974}
+  cam: {fileID: 1526066875}
+  currentLevel: 1
 --- !u!1001 &2045561997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2260,6 +2296,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1e3614f9b2d94b50b9daddac6e85d1c, type: 3}
+--- !u!114 &775722050589223974 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 775722051147224717, guid: e1e3614f9b2d94b50b9daddac6e85d1c, type: 3}
+  m_PrefabInstance: {fileID: 775722050589223973}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56f1037cfb504482eb6e6b7cd04fba42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3770051223941908127
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -81,7 +81,8 @@ public class Runner : MonoBehaviour
 
 	public void ResetToCheckpoint()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		//SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		FindObjectOfType<LevelManager>().BeginLevel();
 	}
 
 	public void GotoCheckpointIfAllowed()
