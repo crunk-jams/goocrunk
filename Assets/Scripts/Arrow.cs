@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
+	[SerializeField] private Animator anim = null;
+	[SerializeField] private string hitParam = "Hit";
+
 	private Rigidbody body = null;
 	private Collider bodyCollider = null;
 
@@ -62,6 +65,11 @@ public class Arrow : MonoBehaviour
 		Destroy(body);
 		Destroy(bodyCollider);
 		Destroy(GetComponent<TimeKeptBody>());
+
+		if (anim != null)
+		{
+			anim.SetTrigger(hitParam);
+		}
 
 		var target = other.collider.GetComponentInParent<Target>();
 		if (target != null)
