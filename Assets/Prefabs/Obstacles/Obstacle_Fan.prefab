@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 2893921691848089057}
   - component: {fileID: 4093213299067179649}
   - component: {fileID: 1632286688495177120}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Obstacle_Fan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2895577258323394162}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FanRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,6 +392,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f403f39703f215949bd37edac2ed16a8, type: 3}
       propertyPath: m_Name
       value: goo_Track_Obstacle_Fan
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f403f39703f215949bd37edac2ed16a8, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f403f39703f215949bd37edac2ed16a8, type: 3}
