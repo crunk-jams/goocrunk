@@ -85,7 +85,7 @@ public class Bow : MonoBehaviour
 				reticle.Lock();
 				arrow.transform.forward = transform.forward;
 			}
-
+			AudioManager.Instance.ChargeShot(pullback);
 			Time.timeScale = gooTimeScale;
 		}
 		else
@@ -135,6 +135,7 @@ public class Bow : MonoBehaviour
 
 				nocked = false;
 				reticle.Unlock();
+				AudioManager.Instance.FireShot(pullback);
 			}
 		}
 	}

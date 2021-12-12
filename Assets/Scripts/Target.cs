@@ -16,6 +16,7 @@ public class Target : MonoBehaviour
 		if (anim != null)
 		{
 			anim.SetTrigger("Broken");
+			AudioManager.Instance.HitTarget();
 
 			var colliders = GetComponentsInChildren<Collider>();
 			if (colliders != null && colliders.Length > 0)
