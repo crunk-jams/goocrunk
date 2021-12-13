@@ -240,7 +240,7 @@ MonoBehaviour:
   minPull: 0
   maxPull: 1
   requiredPullBack: 0.01
-  screenPortionForMax: 5
+  screenPortionForMax: 10
   gooTimeScale: 0.25
 --- !u!95 &2250431444691799629
 Animator:
