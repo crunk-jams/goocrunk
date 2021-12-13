@@ -472,6 +472,7 @@ MonoBehaviour:
   onHit:
     m_PersistentCalls:
       m_Calls: []
+  anim: {fileID: 0}
   directionTrigger: {fileID: 7832368140287318658}
 --- !u!114 &7832368140287318658
 MonoBehaviour:
