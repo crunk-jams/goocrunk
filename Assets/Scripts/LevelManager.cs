@@ -14,6 +14,9 @@ public class LevelManager : MonoBehaviour
 
 	[SerializeField] private int currentLevel = 1;
 
+	[SerializeField] private CanvasGroup assimilation = null;
+	[SerializeField] private float maxAssimilation = 0.5f;
+
 	private void Start()
 	{
 		loadedLevel = FindObjectOfType<Level>();
@@ -47,6 +50,11 @@ public class LevelManager : MonoBehaviour
 		}
 
 		currentLevel++;
+
+		if (assimilation != null)
+		{
+			assimilation.alpha = (((float)currentLevel) / (levels.Length)) * maxAssimilation;
+		}
 
 		BeginLevel();
 
