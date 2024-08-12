@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44232634, g: 0.46804756, b: 0.45786095, a: 1}
+  m_IndirectSpecularColor: {r: 0.4397695, g: 0.46635497, b: 0.45583743, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -912,6 +912,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 469220736116691722, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 469220736935606417, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
       propertyPath: m_Name
       value: Level_1
@@ -967,6 +971,14 @@ PrefabInstance:
     - target: {fileID: 8343055552916920570, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4280283988
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585773445454037074, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585773445739868271, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8691687143617616139, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
       propertyPath: m_Layer
