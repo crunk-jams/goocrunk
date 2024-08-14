@@ -33,10 +33,10 @@ int yCenter = 368;
 int finalX;                 // Values after tilt correction
 int finalY;
 
-int xLeft = 47;                  // Stored calibration points
-int yTop = 93;
-int xRight = 878;
-int yBottom = 546;
+int xLeft;                  // Stored calibration points
+int yTop;
+int xRight;
+int yBottom;
 
 int MoveXAxis;              // Unconstrained mouse postion
 int MoveYAxis;               
@@ -44,7 +44,7 @@ int MoveYAxis;
 int conMoveXAxis;           // Constrained mouse postion
 int conMoveYAxis;           
 
-int count = 0;                  // Set intial count
+int count = 4;                  // Set intial count
 
 int _tiggerPin = 7;               // Label Pin to buttons
 int _upPin = 11;                
@@ -84,45 +84,45 @@ int lastButtonState11 = 0;
 DFRobotIRPosition myDFRobotIRPosition;
 Samco mySamco;
 
-int res_x = 2560;// 1023;              // UPDATE: These values do not need to change
-int res_y = 1600; //768;               // UPDATE: These values do not need to change
+int res_x = 1023;              // UPDATE: These values do not need to change
+int res_y = 768;               // UPDATE: These values do not need to change
 
 
 const int triPin = 12;
 const int echoPin = 5;
 
+
 const int killSwitch = 10;
+const int pauseButtonPin = 11;
 
-bool canFire;
-const int maxDistanceCheck = 100;
-const float startFireDistance = 3.3;
-const float endFireDistance = 2.8;
-const float distanceLvl1 = 4;
-const float distanceLvl2 = 5;
-const float distanceLvl3 = 6;
-const float distanceLvl4 = 7;
+char _pauseKey = "P";                
+char _distanceLvl1_Fire = "A";                
+char _distanceLvl2_Fire = "B";                
+char _distanceLvl3_Fire = "C";                
+char _distanceLvl4_Fire = "D";                
 
-char _firStartedKey = 'F';                
-
-char _distanceLvl1_Fire = 'A';                
-char _distanceLvl2_Fire = 'B';                
-char _distanceLvl3_Fire = 'C';                
-char _distanceLvl4_Fire = 'D';                
-
-char _distanceLvl1_Load = 'W';
+char _distanceLvl1_Load = "W";
 bool lvl1_HasLoaded;                
-char _distanceLvl2_Load = 'X';
+char _distanceLvl2_Load = "X";
 bool lvl2_HasLoaded;                     
-char _distanceLvl3_Load = 'Y';
+char _distanceLvl3_Load = "Y";
 bool lvl3_HasLoaded;                     
-char _distanceLvl4_Load = 'Z';
+char _distanceLvl4_Load = "Z";
 bool lvl4_HasLoaded;                     
 
-float customDivsor = 2;
+char _firStartedKey = "F";                
 
-unsigned long currentMillis = 0;    // stores the value of millis() in each iteration of loop()
-const int onBoardDistanceInterval = 60;
-unsigned long previousDistanceCheck = 0;
+const float fireDistance = 1;
+const float distanceLvl1 = 3;
+const float distanceLvl2 = 5;
+const float distanceLvl3 = 7;
+const float distanceLvl4 = 9;
+
+
+
+int currentDistance;
+bool canFire;
+
 
 
 void setup() {
@@ -134,7 +134,7 @@ void setup() {
   AbsMouse.init(res_x, res_y);            
 
   pinMode(_tiggerPin, INPUT_PULLUP);         // Set pin modes
-  pinMode(_upPin, INPUT_PULLUP);
+//  pinMode(_upPin, INPUT_PULLUP);
   pinMode(_downPin, INPUT_PULLUP);
   pinMode(_leftPin, INPUT_PULLUP);
   pinMode(_rightPin, INPUT_PULLUP);          // Set pin modes
@@ -149,6 +149,7 @@ void setup() {
   
 
   pinMode(killSwitch, INPUT_PULLUP);
+  pinMode(pauseButtonPin, INPUT_PULLUP);
 
   pinMode(triPin, OUTPUT);
   pinMode(echoPin, INPUT);
@@ -164,9 +165,98 @@ bool killSwitchState = digitalRead(killSwitch);
 if (killSwitchState)
   return;
 
-  currentMillis = millis();
-  captureDistance();
 
+//Distance Controls
+  long duration, inches, cm;
+
+  // The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
+  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
+  digitalWrite(triPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(triPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(triPin, LOW);
+
+  // The same pin is used to read the signal from the PING))): a HIGH pulse
+  // whose duration is the time (in microseconds) from the sending of the ping
+  // to the reception of its echo off of an object.
+  duration = pulseIn(echoPin, HIGH);
+
+  // convert the time into a distance
+  distance = microsecondsToInches(duration);
+ // distance = microsecondsToCentimeters(duration);
+
+//Fire with Distance Sensor
+  if (distance < distanceLvl4)
+  {
+    if (canFire)
+    {
+      if (distance < fireDistance)
+      {
+        //Player has fired
+        if (currentDistance <= distanceLvl1)
+        {
+          Keyboard.write(_distanceLvl1_Fire);
+        }
+        else if (currentDistance <= distanceLvl2)
+        {
+          Keyboard.write(_distanceLvl2_Fire);
+        }
+        else if (currentDistance <= distanceLvl3)
+        {
+          Keyboard.write(_distanceLvl3_Fire);
+        }
+        else if (currentDistance <= distanceLvl4)
+        {
+          Keyboard.write(_distanceLvl4_Fire);
+        }
+        
+        canFire = false;
+      }
+
+      if (distance > currentDistance)
+      {
+        currentDistance = distance;
+        //Player is loading Goo
+        if (!lvl1_HasLoaded && currentDistance <= distanceLvl1)
+        {
+          Keyboard.write(_distanceLvl1_Load);
+          lvl1_HasLoaded = true;
+        }
+        else if (!lvl2_HasLoaded && currentDistance <= distanceLvl2)
+        {
+          Keyboard.write(_distanceLvl2_Load);
+          lvl2_HasLoaded = true;
+        }
+        else if (!lvl3_HasLoaded && currentDistance <= distanceLvl3)
+        {
+          Keyboard.write(_distanceLvl3_Load);
+          lvl3_HasLoaded = true;
+        }
+        else if (!lvl4_HasLoaded && currentDistance <= distanceLvl4)
+        {
+          Keyboard.write(_distanceLvl4_Load);
+          lvl4_HasLoaded = true;
+        }
+      }
+    }
+    else if (!canFire && distance > fireDistance)
+    {
+      Keyboard.write(_firStartedKey);
+      canFire = true;
+      currentDistance = distance;
+      lvl1_HasLoaded = false;
+      lvl2_HasLoaded = false;
+      lvl3_HasLoaded = false;
+      lvl4_HasLoaded = false;
+    }
+  }
+
+
+  //Serial.print(distance);
+  //Serial.print("inORcm, ");
+  //Serial.println();
+  
 
 //Mouse Controls
   if (count > 3) {
@@ -253,109 +343,22 @@ if (killSwitchState)
 
 }
 
-void captureDistance()
-{
-  if (currentMillis - previousDistanceCheck <= onBoardDistanceInterval)
-    return;
 
-  previousDistanceCheck += onBoardDistanceInterval;
-
-  float duration, cm, currentDistance;
-
-  // The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
-  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
-  digitalWrite(triPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(triPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(triPin, LOW);
-  duration = pulseIn(echoPin, HIGH);
-
-  cm = microsecondsToCentimeters(duration);
-
-  if (cm < maxDistanceCheck)
-  {
-    if (!canFire && cm >= startFireDistance)
-    {
-      Keyboard.write(_firStartedKey);
-      canFire = true;
-      currentDistance = cm;
-      lvl1_HasLoaded = false;
-      lvl2_HasLoaded = false;
-      lvl3_HasLoaded = false;
-      lvl4_HasLoaded = false;
-    }
-    if (canFire)
-    {
-      if (cm >= currentDistance)
-      {
-        currentDistance = cm;
-        //Player is loading Goo
-        if (!lvl1_HasLoaded && currentDistance >= startFireDistance)
-        {  
-          Keyboard.write(_distanceLvl1_Load);
-          lvl1_HasLoaded = true;
-        }
-        else if (!lvl2_HasLoaded && currentDistance >= distanceLvl1)
-        {
-          Keyboard.write(_distanceLvl2_Load);
-          lvl2_HasLoaded = true;
-        }
-        else if (!lvl3_HasLoaded && currentDistance >= distanceLvl2)
-        {
-          Keyboard.write(_distanceLvl3_Load);
-          lvl3_HasLoaded = true;
-        }
-        else if (!lvl4_HasLoaded && currentDistance >= distanceLvl3)
-        {
-          Keyboard.write(_distanceLvl4_Load);
-          lvl4_HasLoaded = true;
-        }
-      }
-
-      if (cm < endFireDistance)
-      {
-        //Player has fired
-        if (currentDistance >= distanceLvl3)
-        {
-          Keyboard.write(_distanceLvl4_Fire);
-        }
-        else if (currentDistance >= distanceLvl2)
-        {
-          Keyboard.write(_distanceLvl3_Fire);
-        }
-        else if (currentDistance >= distanceLvl1)
-        {
-          Keyboard.write(_distanceLvl2_Fire);
-        }
-        else
-        {
-          Keyboard.write(_distanceLvl1_Fire);
-        }
-        
-        currentDistance = 0;
-        canFire = false;
-        delay(100);
-      }
-    }
-  }
-/*
-  Serial.print(cm);
-  Serial.print("custom ");
-
-  Serial.print(canFire);
-  Serial.print(" canFire ");
-
-  Serial.print(lvl1_HasLoaded);
-  Serial.print(" currentDistance ");
-  Serial.print(currentDistance);
-
-  Serial.println();
-  */
+//Distance Controls
+long microsecondsToInches(long microseconds) {
+  // According to Parallax's datasheet for the PING))), there are 73.746
+  // microseconds per inch (i.e. sound travels at 1130 feet per second).
+  // This gives the distance travelled by the ping, outbound and return,
+  // so we divide by 2 to get the distance of the obstacle.
+  // See: https://www.parallax.com/package/ping-ultrasonic-distance-sensor-downloads/
+  return microseconds / 74 / 2;
 }
 
-float microsecondsToCentimeters(long microseconds) {
-  return microseconds / 29.0 / 2.0;
+long microsecondsToCentimeters(long microseconds) {
+  // The speed of sound is 340 m/s or 29 microseconds per centimeter.
+  // The ping travels out and back, so to find the distance of the object we
+  // take half of the distance travelled.
+  return microseconds / 29 / 2;
 }
 
 //MouseControls
@@ -400,7 +403,7 @@ void go() {    // Setup Start Calibration Button
 void mouseButtons() {    // Setup Left, Right & Middle Mouse buttons
 
   buttonState2 = digitalRead(_tiggerPin);
-  buttonState3 = digitalRead(_upPin);  
+  buttonState3 = digitalRead(pauseButtonPin);  
   buttonState4 = digitalRead(_downPin);
   buttonState5 = digitalRead(_leftPin);
   buttonState6 = digitalRead(_rightPin);   
@@ -419,17 +422,17 @@ void mouseButtons() {    // Setup Left, Right & Middle Mouse buttons
     }
     delay(10);
   }
-/*
+
   if (buttonState3 != lastButtonState3) {
     if (buttonState3 == LOW) {
-    Keyboard.press(_upKey);
+    Keyboard.press(_pauseKey);
     }
     else {
-    Keyboard.release(_upKey);
+    Keyboard.release(_pauseKey);
     }
     delay(10);
   }
-
+/*
   if (buttonState4 != lastButtonState4) {     
     if (buttonState4 == LOW) {
     Keyboard.press(_downKey);
