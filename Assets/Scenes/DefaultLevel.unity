@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4397695, g: 0.46635497, b: 0.45583743, a: 1}
+  m_IndirectSpecularColor: {r: 0.4399326, g: 0.46653253, b: 0.45599794, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -908,17 +908,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1985756436}
     m_Modifications:
-    - target: {fileID: 249698801962402770, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 469220736116691722, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 469220736935606417, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
       propertyPath: m_Name
       value: Level_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 469220736935606417, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 469220736935606418, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
       propertyPath: m_RootOrder
@@ -962,26 +958,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 469220736935606418, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1316700830508946909, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8343055552916920570, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4280283988
-      objectReference: {fileID: 0}
-    - target: {fileID: 8585773445454037074, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8585773445739868271, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8691687143617616139, guid: dddbc385d3dc87843b17e0f19f767ca5, type: 3}
-      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

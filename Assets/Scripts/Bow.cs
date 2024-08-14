@@ -40,45 +40,24 @@ public class Bow : MonoBehaviour
 			Input.GetAxis("Mouse Y") * Screen.height)); //Input.mousePosition;
 		oldMousePos = inputPos;
 
-		// Arduino changes
-		//bool attemptingToNock = Input.GetMouseButton(0);
-		bool attemptingToNock = Input.GetKey(KeyCode.F) || nocked;
+		bool attemptingToNock = Input.GetMouseButton(0);
 
 		if (arrow == null && attemptingToNock)
 		{
 			arrow = Instantiate(nockedArrowPrefab, arrowContainer);
 			arrow.gameObject.SetActive(true);
 			arrow.transform.localPosition = Vector3.zero;
-			reticle.pullStrength = 0f;
 		}
 
-		// Arduino changes
 		// If the player pulls the mouse above where they starting nocking the arrow, start measuring from the new position.
-		//if (inputPos.y > nockStartPos.y)
-		//{
-		//	nockStartPos.y = inputPos.y;
-		//}
+		if (inputPos.y > nockStartPos.y)
+		{
+			nockStartPos.y = inputPos.y;
+		}
 
-		//var pullback = Mathf.Clamp01((nockStartPos.y - inputPos.y) / (Screen.height * screenPortionForMax));
-		var pullback =
-			Input.GetKey(KeyCode.Z) ? 1f
-			: Input.GetKey(KeyCode.Y) ? 0.5f
-			: Input.GetKey(KeyCode.X) ? 0.25f
-			: Input.GetKey(KeyCode.W) ? 0.05f
-			: 0;
-
-		// TODO @Sam do we need this, or can we just check if any of these keys are pressed.
-		(pullback, attemptingToNock) =
-			Input.GetKey(KeyCode.D) ? (1f, false)
-			: Input.GetKey(KeyCode.C) ? (0.5f, false)
-			: Input.GetKey(KeyCode.B) ? (0.25f, false)
-			: Input.GetKey(KeyCode.A) ? (0.05f, false)
-			: (pullback, attemptingToNock);
-
-		pullback = Mathf.Max(pullback, reticle.pullStrength);
+		var pullback = Mathf.Clamp01((nockStartPos.y - inputPos.y) / (Screen.height * screenPortionForMax));
 
 		reticle.pullStrength = pullback;
-
 		reticle.shotReady = pullback >= requiredPullBack;
 
 		var pullDistance = minPull;
@@ -156,7 +135,6 @@ public class Bow : MonoBehaviour
 
 				nocked = false;
 				reticle.Unlock();
-				reticle.pullStrength = 0;
 				AudioManager.Instance.FireShot(pullback);
 			}
 		}

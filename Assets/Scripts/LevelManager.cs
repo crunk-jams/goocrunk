@@ -45,7 +45,6 @@ public class LevelManager : MonoBehaviour
 	{
 		if (currentLevel >= levels.Length)
 		{
-			Cursor.lockState = CursorLockMode.None;
 			SceneManager.LoadScene(endGameScreen);
 			return;
 		}
