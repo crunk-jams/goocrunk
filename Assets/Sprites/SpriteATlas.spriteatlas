@@ -39,24 +39,14 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 763bc090b16ad6f4a8071f46b4a4ce13, type: 3}
-  - {fileID: 21300000, guid: 477703145ac59844aa294d1086c85d10, type: 3}
   - {fileID: 21300000, guid: 376eaf24e8320aa4a938baa5db8717ce, type: 3}
-  - {fileID: 21300000, guid: 91305184eca53cf46a3c892b525e3644, type: 3}
-  - {fileID: 21300000, guid: 7ce59917518dfac4782b0a081670c517, type: 3}
   - {fileID: 21300000, guid: 5baf280848ffb6445a12924d72ae5269, type: 3}
-  - {fileID: 21300000, guid: 2a786d08bde463e4298bdc9ead14f4c3, type: 3}
   - {fileID: 21300000, guid: aa2a1c1aaf133df4c918a5edb2695324, type: 3}
-  - {fileID: 21300000, guid: 91d1c11fe3c0e8e489bd3187a4ffd050, type: 3}
   m_PackedSpriteNamesToIndex:
   - BKG
-  - charanim_4
   - Logo
-  - charanim_2
-  - charanim_5
   - MoveGraphic
-  - charanim_3
   - ShootGraphic
-  - charanim_1
   m_RenderDataMap: {}
   m_Tag: SpriteATlas
   m_IsVariant: 0
