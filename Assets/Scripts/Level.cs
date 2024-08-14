@@ -12,6 +12,4 @@ public class Level : MonoBehaviour
 			startingPath.GiveDirection(FindObjectOfType<Runner>().transform);
 		}
 	}
-
-	// TODO @Sam setup P key to Pause or Reset level (that is wired in arduino)
 }

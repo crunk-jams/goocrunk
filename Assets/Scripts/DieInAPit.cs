@@ -10,7 +10,6 @@ public class DieInAPit : MonoBehaviour
 	[SerializeField] private bool destroyOnDie = true;
 	[SerializeField] private UnityEvent onDie = null;
 
-	// TODO @Sam Falling off the ledge before the first portal in Level 5 gets stuck in loop of death.
 	private void Start()
 	{
 		pit = FindObjectOfType<PitOfDeath>();
