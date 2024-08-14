@@ -56,7 +56,9 @@ public class Reticle : MonoBehaviour
 				//Cursor.lockState = CursorLockMode.Confined;
 				Cursor.lockState = CursorLockMode.Locked;
 				apexIndicator.SetActive(shotReady);
-				pullStrength = Mathf.Sqrt(Mathf.Clamp01(pullStrength));
+				// Arduino changes
+				//pullStrength = Mathf.Sqrt(Mathf.Clamp01(pullStrength));
+				pullStrength = Mathf.Clamp01(pullStrength);
 				apexIndicator.transform.position =
 					(shortArcIndicator.transform.position * (1- pullStrength)) +
 					(longArcIndicator.transform.position * pullStrength);
@@ -66,7 +68,9 @@ public class Reticle : MonoBehaviour
 		var scaledSensitivity = camSensitivity / Time.timeScale;
 
 		// Allow vertical rotation while aiming freely. After shooting the player needs to return mouse to it's old y.
-		if (state == AimState.FreeAim)
+		// Arduino changes
+		//if (state == AimState.FreeAim)
+		if (true)
 		{
 			float verticalRotation = Input.GetAxis("Mouse Y") * Time.deltaTime * scaledSensitivity;
 			verticalRotation = Mathf.Clamp(verticalRotation, -90, 90);

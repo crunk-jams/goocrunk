@@ -436,10 +436,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 871848181651595705, guid: 9a710a6ea6547264e8daa3944ed2d07f, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2434529527374404424, guid: 9a710a6ea6547264e8daa3944ed2d07f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -527,14 +523,6 @@ PrefabInstance:
     - target: {fileID: 7404940644708461935, guid: 9a710a6ea6547264e8daa3944ed2d07f, type: 3}
       propertyPath: m_Name
       value: LevelCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7404940644708461935, guid: 9a710a6ea6547264e8daa3944ed2d07f, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8642800870331710304, guid: 9a710a6ea6547264e8daa3944ed2d07f, type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a710a6ea6547264e8daa3944ed2d07f, type: 3}
