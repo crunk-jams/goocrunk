@@ -242,6 +242,9 @@ MonoBehaviour:
   requiredPullBack: 0.01
   screenPortionForMax: 10
   gooTimeScale: 0.25
+  denoiseThreshold: 0
+  simRestNoise: 0
+  simRecoil: 0
 --- !u!95 &2250431444691799629
 Animator:
   serializedVersion: 4

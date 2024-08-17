@@ -310,6 +310,10 @@ MonoBehaviour:
   longArcIndicator: {fileID: 510085436369385530}
   pullStrength: 0
   shotReady: 0
+  simpleSmoothing: 0
+  smoothFrames: 8
+  simRestNoise: 30
+  simRecoil: 0
 --- !u!1 &5598684512556027093
 GameObject:
   m_ObjectHideFlags: 0

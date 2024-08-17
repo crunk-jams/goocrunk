@@ -28,12 +28,12 @@ public class Bow : MonoBehaviour
 	private Rigidbody arrow = null;
 	private bool waitingPostShot = false;
 
-		private void Awake()
-		{
-			oldMousePos = Input.mousePosition;
-		}
+	private void Awake()
+	{
+		oldMousePos = Input.mousePosition;
+	}
 
-		private void Update()
+	private void Update()
 	{
 		var inputPos = oldMousePos + (new Vector2(
 			Input.GetAxis("Mouse X") * Screen.width ,

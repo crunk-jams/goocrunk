@@ -307,6 +307,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1526066875}
+    - target: {fileID: 3286776009899719747, guid: ee85a3725d0bf46be806e5b7317781e9, type: 3}
+      propertyPath: denoiseThreshold
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3286776009899719750, guid: ee85a3725d0bf46be806e5b7317781e9, type: 3}
       propertyPath: m_RootOrder
       value: 1

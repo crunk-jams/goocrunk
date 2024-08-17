@@ -28,8 +28,19 @@ public class Reticle : MonoBehaviour
 	[HideInInspector] public float pullStrength = 0;
 	[HideInInspector] public bool shotReady = false;
 
+	[Header("Gun Smoothing")]
+	[SerializeField] private bool simpleSmoothing = false;
+	[SerializeField] private int smoothFrames = 0;
+
+	[Header("Gun Simulation Testing")]
+	[SerializeField] private float simRestNoise = 0f;
+	[SerializeField] private float simRecoil = 0f;
 
 	private TimeKeeper timeKeeper = null;
+	private bool simulateGun = false;
+	private bool applySmoothing = true;
+	private Vector2 accumulatedRotation = Vector2.zero;
+	private List<Vector2> cachedFrames = new List<Vector2>();
 
 	void Start()
 	{
@@ -44,6 +55,29 @@ public class Reticle : MonoBehaviour
 		if (!timeKeeper.HasFocus)
 		{
 			return;
+		}
+
+		if (cachedFrames.Count < smoothFrames)
+		{
+			for (int i = cachedFrames.Count; i < smoothFrames; i++) {
+				cachedFrames.Insert(0, Vector2.zero);
+			}
+		}
+		else if (cachedFrames.Count > smoothFrames)
+		{
+			while (cachedFrames.Count > smoothFrames) {
+				cachedFrames.RemoveAt(0);
+			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.G))
+		{
+			simulateGun = !simulateGun;
+		}
+
+		if (Input.GetKeyDown(KeyCode.H))
+		{
+			applySmoothing = !applySmoothing;
 		}
 
 		switch (state)
@@ -66,6 +100,7 @@ public class Reticle : MonoBehaviour
 		}
 
 		var scaledSensitivity = camSensitivity / Time.timeScale;
+		var newRotation = Vector2.zero;
 
 		// Allow vertical rotation while aiming freely. After shooting the player needs to return mouse to it's old y.
 		// Arduino changes
@@ -74,12 +109,18 @@ public class Reticle : MonoBehaviour
 		{
 			float verticalRotation = Input.GetAxis("Mouse Y") * Time.deltaTime * scaledSensitivity;
 			verticalRotation = Mathf.Clamp(verticalRotation, -90, 90);
+			if (simulateGun) { verticalRotation += UnityEngine.Random.Range(-simRestNoise, simRestNoise) * Time.deltaTime; }
+			newRotation.y = verticalRotation;
+			verticalRotation = DenoiseRest(verticalRotation, true);
 			cam.transform.Rotate(-cam.Player.right * verticalRotation, Space.World);
 		}
 
 		// Allow horizontal rotation, and all rotation clamping at all times.
 		float horizontalRotation = Input.GetAxis("Mouse X") * Time.deltaTime * scaledSensitivity;
 		horizontalRotation = Mathf.Clamp(horizontalRotation, -90, 90);
+		newRotation.x = horizontalRotation;
+		if (simulateGun) { horizontalRotation += UnityEngine.Random.Range(-simRestNoise, simRestNoise) * Time.deltaTime; }
+		horizontalRotation = DenoiseRest(horizontalRotation, false);
 		cam.transform.Rotate(cam.Player.up * horizontalRotation, Space.World);
 
 		cam.transform.LookAt(cam.transform.position + cam.transform.forward, cam.Player.up);
@@ -103,6 +144,47 @@ public class Reticle : MonoBehaviour
 			var sign = dotUp >= 0 ? 1 : -1;
 			cam.transform.Rotate(-cam.Player.right * (verticalTurnMax - verticalTurnTotal) * sign, Space.World);
 		}
+
+		if (cachedFrames.Count > 0)
+		{
+			for (int i = 0; i < cachedFrames.Count - 1; i++)
+			{
+				cachedFrames[i] = cachedFrames[i + 1];
+			}
+			cachedFrames[cachedFrames.Count - 1] = newRotation;
+		}
+	}
+
+	public float DenoiseRest(float attemptRotation, bool vertical)
+	{
+		if (!applySmoothing)
+		{
+			return attemptRotation;
+		}
+
+		var sum = vertical
+			? new Vector2(0, attemptRotation)
+			: new Vector2(attemptRotation, 0);
+
+
+		if (simpleSmoothing)
+		{
+			for (int i = 0; i < cachedFrames.Count; i++)
+			{
+				sum += cachedFrames[i];
+			}
+		}
+		else
+		{
+			var factor = (float)cachedFrames.Count;
+			for (int i = 0; i < cachedFrames.Count; i++)
+			{
+				sum += cachedFrames[i] * (i / factor);
+			}
+		}
+
+		var avg = sum / (cachedFrames.Count + 1);
+		return vertical ? avg.y : avg.x;
 	}
 
 	public void Unlock()

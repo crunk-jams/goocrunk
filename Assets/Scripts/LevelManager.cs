@@ -17,8 +17,6 @@ public class LevelManager : MonoBehaviour
 	[SerializeField] private CanvasGroup assimilation = null;
 	[SerializeField] private float maxAssimilation = 0.5f;
 
-	private Vector3 spawnLocation = Vector3.zero;
-
 	private void Start()
 	{
 		loadedLevel = FindObjectOfType<Level>();
@@ -42,10 +40,12 @@ public class LevelManager : MonoBehaviour
 		loadedLevel.transform.localRotation = Quaternion.identity;
 
 
-		player.transform.position = spawnLocation;
-		player.transform.rotation = Quaternion.identity;
+		player.transform.position = Vector3.zero;
+		// Arduino change ... keep pointing where the gun is
+		//player.transform.rotation = Quaternion.identity;
 		player.grounded = 0;
-		cam.transform.rotation = Quaternion.identity;
+		// Arduino change ... keep pointing where the gun is
+		//cam.transform.rotation = Quaternion.identity;
 		AudioManager.Instance.ChangedLevel(currentLevel);
 	}
 
