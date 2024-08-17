@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-	[SerializeField] private DirectionTrigger startingPath = null;
+	public DirectionTrigger startingPath = null;
 
 	private void Start()
 	{
+		var runner = FindObjectOfType<Runner>();
 		if (startingPath != null)
 		{
-			startingPath.GiveDirection(FindObjectOfType<Runner>().transform);
+			startingPath.GiveDirection(runner.transform);
 		}
 	}
 

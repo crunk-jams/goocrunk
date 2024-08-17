@@ -17,14 +17,21 @@ public class LevelManager : MonoBehaviour
 	[SerializeField] private CanvasGroup assimilation = null;
 	[SerializeField] private float maxAssimilation = 0.5f;
 
+	private Vector3 spawnLocation = Vector3.zero;
+
 	private void Start()
 	{
 		loadedLevel = FindObjectOfType<Level>();
 		BeginLevel();
 	}
 
-	public void BeginLevel()
+	public void BeginLevel(bool newLevel = false)
 	{
+		if (!newLevel && loadedLevel?.startingPath != null)
+		{
+			loadedLevel.startingPath.GiveDirection(player.transform);
+		}
+
 		if (loadedLevel != null)
 		{
 			Destroy(loadedLevel.gameObject);
@@ -34,7 +41,8 @@ public class LevelManager : MonoBehaviour
 		loadedLevel.transform.localPosition = Vector3.zero;
 		loadedLevel.transform.localRotation = Quaternion.identity;
 
-		player.transform.position = Vector3.zero;
+
+		player.transform.position = spawnLocation;
 		player.transform.rotation = Quaternion.identity;
 		player.grounded = 0;
 		cam.transform.rotation = Quaternion.identity;
@@ -57,7 +65,7 @@ public class LevelManager : MonoBehaviour
 			assimilation.alpha = (((float)currentLevel) / (levels.Length)) * maxAssimilation;
 		}
 
-		BeginLevel();
+		BeginLevel(true);
 
 		var arrows = FindObjectsOfType<Arrow>();
 		for (int i = arrows.Length - 1; i >= 0; i--)
