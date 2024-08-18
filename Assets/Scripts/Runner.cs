@@ -85,8 +85,16 @@ public class Runner : MonoBehaviour
 
 	public void ResetToCheckpoint()
 	{
-		//SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		FindObjectOfType<LevelManager>().BeginLevel();
+		if (PlayerLives.Instance.LoseLife())
+		{
+			FindObjectOfType<LevelManager>().BeginLevel();
+		}
+		else
+		{
+			// TODO @sam We need to Destroy all the Don't Destroy on Load objects, or prevent duplicating.
+			SceneManager.LoadScene("MainMenu");
+		}
+
 	}
 
 	public void GotoCheckpointIfAllowed()

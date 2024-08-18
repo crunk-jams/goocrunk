@@ -9,6 +9,11 @@ public class MenuProof : MonoBehaviour
 
 	private void Awake()
 	{
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+
+		// TODO Destroy Everything that is already DontDestroyOnLoad so we don't get duplicates
+		// maybe when instance changes
 		if (instance == null)
 		{
 			instance = this;

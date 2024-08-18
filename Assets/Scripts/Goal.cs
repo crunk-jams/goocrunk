@@ -11,6 +11,7 @@ public class Goal : MonoBehaviour
 		if (other.gameObject.GetComponent<Runner>() != null)
 		{
 			FindObjectOfType<LevelManager>().NextLevel();
+			PlayerLives.Instance.GainLife();
 			AudioManager.Instance.HitCheckPoint();
 		}
 	}
