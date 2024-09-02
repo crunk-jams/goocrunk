@@ -17,6 +17,7 @@ public class Reticle : MonoBehaviour
 
 	private Vector3 offset = Vector3.zero;
 
+	[SerializeField] private CursorLockMode cursorMode = CursorLockMode.Confined;
 	[SerializeField] private PlayerCamera cam = null;
 	[SerializeField] private float camSensitivity = 180f;
 	[SerializeField] private float horizontalTurnMax = 45;
@@ -83,12 +84,13 @@ public class Reticle : MonoBehaviour
 		switch (state)
 		{
 			case AimState.FreeAim:
-				Cursor.lockState = CursorLockMode.Locked;
+				Cursor.lockState = cursorMode;
+				//Cursor.lockState = CursorLockMode.Locked;
 				apexIndicator.SetActive(false);
 				break;
 			case AimState.NockLocked:
-				//Cursor.lockState = CursorLockMode.Confined;
-				Cursor.lockState = CursorLockMode.Locked;
+				Cursor.lockState = cursorMode;
+				//Cursor.lockState = CursorLockMode.Locked;
 				apexIndicator.SetActive(shotReady);
 				// Arduino changes
 				//pullStrength = Mathf.Sqrt(Mathf.Clamp01(pullStrength));
@@ -99,31 +101,9 @@ public class Reticle : MonoBehaviour
 				break;
 		}
 
-		var scaledSensitivity = camSensitivity / Time.timeScale;
-		var newRotation = Vector2.zero;
-
-		// Allow vertical rotation while aiming freely. After shooting the player needs to return mouse to it's old y.
-		// Arduino changes
-		//if (state == AimState.FreeAim)
-		if (true)
-		{
-			float verticalRotation = Input.GetAxis("Mouse Y") * Time.deltaTime * scaledSensitivity;
-			verticalRotation = Mathf.Clamp(verticalRotation, -90, 90);
-			if (simulateGun) { verticalRotation += UnityEngine.Random.Range(-simRestNoise, simRestNoise) * Time.deltaTime; }
-			newRotation.y = verticalRotation;
-			verticalRotation = DenoiseRest(verticalRotation, true);
-			cam.transform.Rotate(-cam.Player.right * verticalRotation, Space.World);
-		}
-
-		// Allow horizontal rotation, and all rotation clamping at all times.
-		float horizontalRotation = Input.GetAxis("Mouse X") * Time.deltaTime * scaledSensitivity;
-		horizontalRotation = Mathf.Clamp(horizontalRotation, -90, 90);
-		newRotation.x = horizontalRotation;
-		if (simulateGun) { horizontalRotation += UnityEngine.Random.Range(-simRestNoise, simRestNoise) * Time.deltaTime; }
-		horizontalRotation = DenoiseRest(horizontalRotation, false);
-		cam.transform.Rotate(cam.Player.up * horizontalRotation, Space.World);
-
-		cam.transform.LookAt(cam.transform.position + cam.transform.forward, cam.Player.up);
+		Vector2 newRotation = cursorMode == CursorLockMode.Locked
+			? LookMouseDelta()
+			: LookMousePos();
 
 		var noUp = (cam.transform.forward - Vector3.Project(cam.transform.forward, cam.Player.up)).normalized;
 		var noRight = (cam.transform.forward - Vector3.Project(cam.transform.forward, cam.Player.right)).normalized;
@@ -154,6 +134,61 @@ public class Reticle : MonoBehaviour
 			cachedFrames[cachedFrames.Count - 1] = newRotation;
 		}
 	}
+
+	private Vector2 LookMouseDelta()
+	{
+		var scaledSensitivity = camSensitivity / Time.timeScale;
+		var newRotation = Vector2.zero;
+
+		// Allow vertical rotation while aiming freely. After shooting the player needs to return mouse to it's old y.
+		// Arduino changes
+		//if (state == AimState.FreeAim)
+		if (true)
+		{
+			float verticalRotation = Input.GetAxis("Mouse Y") * Time.deltaTime * scaledSensitivity;
+			verticalRotation = Mathf.Clamp(verticalRotation, -90, 90);
+			if (simulateGun) { verticalRotation += UnityEngine.Random.Range(-simRestNoise, simRestNoise) * Time.deltaTime; }
+			newRotation.y = verticalRotation;
+			verticalRotation = DenoiseRest(verticalRotation, true);
+			cam.transform.Rotate(-cam.Player.right * verticalRotation, Space.World);
+		}
+
+		// Allow horizontal rotation, and all rotation clamping at all times.
+		float horizontalRotation = Input.GetAxis("Mouse X") * Time.deltaTime * scaledSensitivity;
+		horizontalRotation = Mathf.Clamp(horizontalRotation, -90, 90);
+		newRotation.x = horizontalRotation;
+		if (simulateGun) { horizontalRotation += UnityEngine.Random.Range(-simRestNoise, simRestNoise) * Time.deltaTime; }
+		horizontalRotation = DenoiseRest(horizontalRotation, false);
+		cam.transform.Rotate(cam.Player.up * horizontalRotation, Space.World);
+
+		cam.transform.LookAt(cam.transform.position + cam.transform.forward, cam.Player.up);
+		return newRotation;
+	}
+
+	private Vector2 LookMousePos()
+	{
+		var maxRot = new Vector2(horizontalTurnMax, verticalTurnMax);
+		var normMousePos = new Vector2(Input.mousePosition.x / Screen.width, Input.mousePosition.y / Screen.height);
+		var newRotation = new Vector2(
+				((1f - normMousePos.x) * -maxRot.x) + (normMousePos.x *  maxRot.x),
+				((1f - normMousePos.y) *  maxRot.y) + (normMousePos.y * -maxRot.y));
+
+		var verticalRotation = newRotation.y;
+		if (simulateGun) { verticalRotation += UnityEngine.Random.Range(-simRestNoise, simRestNoise) * Time.deltaTime; }
+		newRotation.y = verticalRotation;
+		verticalRotation = DenoiseRest(verticalRotation, true);
+
+		var horizontalRotation = newRotation.x;
+		if (simulateGun) { horizontalRotation += UnityEngine.Random.Range(-simRestNoise, simRestNoise) * Time.deltaTime; }
+		newRotation.x = horizontalRotation;
+		horizontalRotation = DenoiseRest(horizontalRotation, false);
+
+		cam.transform.eulerAngles = new Vector3(verticalRotation, horizontalRotation, 0);
+
+		cam.transform.LookAt(cam.transform.position + cam.transform.forward, cam.Player.up);
+		return newRotation;
+	}
+
 
 	public float DenoiseRest(float attemptRotation, bool vertical)
 	{

@@ -301,10 +301,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1794d8cf140e64d6c80caa2c1c07a5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorMode: 2
   cam: {fileID: 0}
   camSensitivity: 180
-  horizontalTurnMax: 80
-  verticalTurnMax: 45
+  horizontalTurnMax: 90
+  verticalTurnMax: 70
   apexIndicator: {fileID: 8998835305413556071}
   shortArcIndicator: {fileID: 5598684512556027093}
   longArcIndicator: {fileID: 510085436369385530}
