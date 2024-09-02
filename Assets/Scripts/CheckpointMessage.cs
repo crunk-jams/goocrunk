@@ -16,7 +16,7 @@ public class CheckpointMessage : MonoBehaviour
 
 	private void Awake()
 	{
-		DontDestroyOnLoad(this);
+		MenuProof.Instance?.OutLiveScene(gameObject);
 		gameObject.name = "CheckpointMessage";
 	}
 }

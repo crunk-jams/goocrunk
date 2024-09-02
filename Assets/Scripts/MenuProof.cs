@@ -6,20 +6,26 @@ using UnityEngine;
 public class MenuProof : MonoBehaviour
 {
 	private static MenuProof instance = null;
+	public static MenuProof Instance => instance;
+	public Texture2D cursorImage = null;
+	private List<GameObject> sceneSurvivors = new();
 
 	private void Awake()
 	{
-		Cursor.lockState = CursorLockMode.None;
+		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = true;
+		if (cursorImage != null)
+		{
+			Cursor.SetCursor(cursorImage, new Vector2(cursorImage.width, cursorImage.height), CursorMode.Auto);
+		}
 
-		// TODO Destroy Everything that is already DontDestroyOnLoad so we don't get duplicates
-		// maybe when instance changes
 		if (instance == null)
 		{
 			instance = this;
 		}
 		else
 		{
+			instance.NoSurvivors();
 			Destroy(gameObject);
 			return;
 		}
@@ -32,5 +38,20 @@ public class MenuProof : MonoBehaviour
 		{
 			FindObjectOfType<GotoScene>().scene = sceneRequest.sceneName;
 		}
+	}
+
+	public void OutLiveScene(GameObject survivor)
+	{
+		DontDestroyOnLoad(survivor);
+		sceneSurvivors.Add(survivor);
+	}
+
+	public void NoSurvivors()
+	{
+		foreach (var survivor in sceneSurvivors)
+		{
+			Destroy(survivor);
+		}
+		sceneSurvivors.Clear();
 	}
 }

@@ -9,6 +9,6 @@ public class GoToSceneRequest : MonoBehaviour
 
 	public void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
+		MenuProof.Instance?.OutLiveScene(gameObject);
 	}
 }
