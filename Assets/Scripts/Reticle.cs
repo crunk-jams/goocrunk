@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Reticle : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class Reticle : MonoBehaviour
 	[SerializeField] private GameObject apexIndicator;
 	[SerializeField] private GameObject shortArcIndicator;
 	[SerializeField] private GameObject longArcIndicator;
+	[SerializeField] private bool canDebug;
+	[SerializeField] private TextMeshProUGUI debugViewLimits;
 	[HideInInspector] public float pullStrength = 0;
 	[HideInInspector] public bool shotReady = false;
 
@@ -68,6 +71,40 @@ public class Reticle : MonoBehaviour
 		{
 			while (cachedFrames.Count > smoothFrames) {
 				cachedFrames.RemoveAt(0);
+			}
+		}
+
+		if (canDebug)
+		{
+			bool showDebug = Input.GetKey(KeyCode.LeftShift);
+			if (debugViewLimits.gameObject.activeSelf != showDebug)
+			{
+				debugViewLimits.gameObject.SetActive(showDebug);
+			}
+
+			if (showDebug)
+			{
+				if (Input.GetKeyDown(KeyCode.LeftArrow))
+				{
+					horizontalTurnMax--;
+				}
+
+				if (Input.GetKeyDown(KeyCode.RightArrow))
+				{
+					horizontalTurnMax++;
+				}
+
+				if (Input.GetKeyDown(KeyCode.DownArrow))
+				{
+					verticalTurnMax--;
+				}
+
+				if (Input.GetKeyDown(KeyCode.UpArrow))
+				{
+					verticalTurnMax++;
+				}
+
+				debugViewLimits.text = $"{horizontalTurnMax}x{verticalTurnMax}";
 			}
 		}
 

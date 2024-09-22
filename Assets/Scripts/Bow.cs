@@ -61,18 +61,18 @@ public class Bow : MonoBehaviour
 
 		//var pullback = Mathf.Clamp01((nockStartPos.y - inputPos.y) / (Screen.height * screenPortionForMax));
 		var pullback =
-			Input.GetKey(KeyCode.Z) ? 1f
-			: Input.GetKey(KeyCode.Y) ? 0.5f
+			Input.GetKey(KeyCode.Z)   ? 1.00f
+			: Input.GetKey(KeyCode.Y) ? 0.50f
 			: Input.GetKey(KeyCode.X) ? 0.25f
 			: Input.GetKey(KeyCode.W) ? 0.05f
 			: 0;
 
 		// TODO @Sam do we need this, or can we just check if any of these keys are pressed.
 		(pullback, attemptingToNock) =
-			Input.GetKey(KeyCode.D) ? (1f, false)
-			: Input.GetKey(KeyCode.C) ? (0.5f, false)
-			: Input.GetKey(KeyCode.B) ? (0.25f, false)
-			: Input.GetKey(KeyCode.A) ? (0.05f, false)
+			Input.GetKey(KeyCode.D)   ? (Mathf.Min(1.00f, pullback), false)
+			: Input.GetKey(KeyCode.C) ? (Mathf.Min(0.50f, pullback), false)
+			: Input.GetKey(KeyCode.B) ? (Mathf.Min(0.25f, pullback), false)
+			: Input.GetKey(KeyCode.A) ? (Mathf.Min(0.05f, pullback), false)
 			: (pullback, attemptingToNock);
 
 		pullback = Mathf.Max(pullback, reticle.pullStrength);
