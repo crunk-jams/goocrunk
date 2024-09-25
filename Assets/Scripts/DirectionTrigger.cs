@@ -7,11 +7,13 @@ public class DirectionTrigger : MonoBehaviour
 	[SerializeField] private float turnDuration = 0.2f;
 	[SerializeField] private float pathWidth = 1;
 	private PlayerCamera playerCamera = null;
+	private Reticle reticle = null;
 
 
 	private void Awake()
 	{
 		playerCamera = FindObjectOfType<PlayerCamera>();
+		reticle = FindObjectOfType<Reticle>();
 	}
 
 	public void GiveDirection(Transform target)
@@ -45,13 +47,14 @@ public class DirectionTrigger : MonoBehaviour
 	{
 		if (target != null && target == playerCamera.Player.transform)
 		{
-			playerCamera.TurnTowards(endDirection.forward, endDirection.up, turnDuration);
+			//playerCamera.TurnTowards(endDirection.forward, endDirection.up, turnDuration);
+			reticle.TrackChanged();
 		}
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		//ForeshadowDirection(other.transform);
+		ForeshadowDirection(other.transform);
 		GiveDirection(other.transform);
 	}
 

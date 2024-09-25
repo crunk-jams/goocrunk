@@ -17,12 +17,15 @@ public class Reticle : MonoBehaviour
 	public AimState State => state;
 
 	private Vector3 offset = Vector3.zero;
+	private float trackChangedTime = 0f;
+	private Vector3 oldPlayerEuler = Vector3.zero;
 
 	[SerializeField] private CursorLockMode cursorMode = CursorLockMode.Confined;
 	[SerializeField] private PlayerCamera cam = null;
 	[SerializeField] private float camSensitivity = 180f;
 	[SerializeField] private float horizontalTurnMax = 45;
 	[SerializeField] private float verticalTurnMax = 45;
+	[SerializeField] private float trackTurnDuration = 0.3f;
 
 	[SerializeField] private GameObject apexIndicator;
 	[SerializeField] private GameObject shortArcIndicator;
@@ -220,7 +223,13 @@ public class Reticle : MonoBehaviour
 		newRotation.x = horizontalRotation;
 		horizontalRotation = DenoiseRest(horizontalRotation, false);
 
-		cam.transform.eulerAngles = new Vector3(verticalRotation, horizontalRotation, 0);
+		var eulerWeight = trackTurnDuration > 0
+			? Mathf.Clamp01((Time.time - trackChangedTime) / trackTurnDuration)
+			: 0; // If zero or less do no turn for track
+		var oldPlayerEulerY = oldPlayerEuler.y < 180 ? oldPlayerEuler.y : oldPlayerEuler.y - 360;
+		var newPlayerEulerY = cam.Player.transform.eulerAngles.y < 180 ? cam.Player.transform.eulerAngles.y : cam.Player.transform.eulerAngles.y - 360;
+		var playerEulerY = ((1f - eulerWeight) * oldPlayerEulerY) + (eulerWeight * newPlayerEulerY);
+		cam.transform.eulerAngles = new Vector3(verticalRotation, horizontalRotation, 0) + new Vector3(0, playerEulerY, 0);
 
 		cam.transform.LookAt(cam.transform.position + cam.transform.forward, cam.Player.up);
 		return newRotation;
@@ -280,5 +289,11 @@ public class Reticle : MonoBehaviour
 		{
 			state = AimState.FreeAim;
 		}
+	}
+
+	public void TrackChanged()
+	{
+		trackChangedTime = Time.time;
+		oldPlayerEuler = cam.Player.transform.eulerAngles;
 	}
 }

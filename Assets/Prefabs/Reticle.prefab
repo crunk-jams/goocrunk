@@ -442,6 +442,7 @@ MonoBehaviour:
   camSensitivity: 180
   horizontalTurnMax: 70
   verticalTurnMax: 50
+  trackTurnDuration: 0.3
   apexIndicator: {fileID: 8998835305413556071}
   shortArcIndicator: {fileID: 5598684512556027093}
   longArcIndicator: {fileID: 510085436369385530}
