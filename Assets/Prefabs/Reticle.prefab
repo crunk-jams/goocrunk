@@ -446,7 +446,7 @@ MonoBehaviour:
   apexIndicator: {fileID: 8998835305413556071}
   shortArcIndicator: {fileID: 5598684512556027093}
   longArcIndicator: {fileID: 510085436369385530}
-  canDebug: 1
+  canDebug: 0
   debugViewLimits: {fileID: 8976296226289744172}
   pullStrength: 0
   shotReady: 0
