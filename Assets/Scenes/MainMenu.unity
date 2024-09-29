@@ -554,7 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e58c84842e93148dea282ab73498187e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorImage: {fileID: 0}
+  cursorImage: {fileID: 2800000, guid: e9d2dd1a6bf1e4449ad9071d194651e5, type: 3}
 --- !u!4 &443697323
 Transform:
   m_ObjectHideFlags: 0
