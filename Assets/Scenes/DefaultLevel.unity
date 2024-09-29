@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4397695, g: 0.46635497, b: 0.45583743, a: 1}
+  m_IndirectSpecularColor: {r: 0.4399326, g: 0.46653253, b: 0.45599794, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -307,6 +307,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1526066875}
+    - target: {fileID: 3286776009899719747, guid: ee85a3725d0bf46be806e5b7317781e9, type: 3}
+      propertyPath: camSensitivity
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3286776009899719747, guid: ee85a3725d0bf46be806e5b7317781e9, type: 3}
       propertyPath: denoiseThreshold
       value: 0
