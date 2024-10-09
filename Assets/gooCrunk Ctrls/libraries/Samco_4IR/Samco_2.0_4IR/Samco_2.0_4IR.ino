@@ -20,23 +20,23 @@
 
 // Tigger is set to LEFT_MOUSE, A Button is set to RIGHT_MOUSE & B Button is set to MIDDLE_MOUSE 
        
-char _upKey = "KEY_UP_ARROW";                
+char _upKey = KEY_UP_ARROW;                
 char _downKey = KEY_DOWN_ARROW;              
 char _leftKey = KEY_LEFT_ARROW;             
 char _rightKey = KEY_RIGHT_ARROW;                             
 char _startKey = KEY_RETURN; 
 char _selectKey = KEY_BACKSPACE; 
 
-int xCenter = 512;          // If second calibration seems more accurate you can replace these values with the altered camera center values from serial monitor
-int yCenter = 368;
+int xCenter = 522;          // If second calibration seems more accurate you can replace these values with the altered camera center values from serial monitor
+int yCenter = 138;
 
 int finalX;                 // Values after tilt correction
 int finalY;
 
-int xLeft = 47;                  // Stored calibration points
-int yTop = 93;
-int xRight = 878;
-int yBottom = 546;
+int xLeft = 181;                  // Stored calibration points
+int yTop = -40;
+int xRight = 863;
+int yBottom = 316;
 
 int MoveXAxis;              // Unconstrained mouse postion
 int MoveYAxis;               
@@ -95,27 +95,26 @@ const int killSwitch = 10;
 
 bool canFire;
 const int maxDistanceCheck = 100;
-const float startFireDistance = 3.3;
-const float endFireDistance = 2.8;
-const float distanceLvl1 = 4;
-const float distanceLvl2 = 5;
-const float distanceLvl3 = 6;
-const float distanceLvl4 = 7;
+const float startFireDistance = 5;
+const float endFireDistance = 4.2;
+const float distanceLvl1 = 5.25;
+const float distanceLvl2 = 5.3;
+const float distanceLvl3 = 5.5;
 
-char _firStartedKey = 'F';                
+char _firStartedKey = 'f';                
 
-char _distanceLvl1_Fire = 'A';                
-char _distanceLvl2_Fire = 'B';                
-char _distanceLvl3_Fire = 'C';                
-char _distanceLvl4_Fire = 'D';                
+char _distanceLvl1_Fire = 'a';                
+char _distanceLvl2_Fire = 'b';                
+char _distanceLvl3_Fire = 'c';                
+char _distanceLvl4_Fire = 'd';                
 
-char _distanceLvl1_Load = 'W';
+char _distanceLvl1_Load = 'w';
 bool lvl1_HasLoaded;                
-char _distanceLvl2_Load = 'X';
+char _distanceLvl2_Load = 'x';
 bool lvl2_HasLoaded;                     
-char _distanceLvl3_Load = 'Y';
+char _distanceLvl3_Load = 'y';
 bool lvl3_HasLoaded;                     
-char _distanceLvl4_Load = 'Z';
+char _distanceLvl4_Load = 'z';
 bool lvl4_HasLoaded;                     
 
 float customDivsor = 2;
@@ -301,12 +300,12 @@ void captureDistance()
           Keyboard.write(_distanceLvl2_Load);
           lvl2_HasLoaded = true;
         }
-        else if (!lvl3_HasLoaded && currentDistance >= distanceLvl2)
-        {
-          Keyboard.write(_distanceLvl3_Load);
-          lvl3_HasLoaded = true;
-        }
-        else if (!lvl4_HasLoaded && currentDistance >= distanceLvl3)
+   //     else if (!lvl3_HasLoaded && currentDistance >= distanceLvl2)
+   //     {
+   //       Keyboard.write(_distanceLvl3_Load);
+   //       lvl3_HasLoaded = true;
+   //     }
+        else if (!lvl4_HasLoaded && currentDistance >= distanceLvl2)
         {
           Keyboard.write(_distanceLvl4_Load);
           lvl4_HasLoaded = true;
@@ -316,14 +315,14 @@ void captureDistance()
       if (cm < endFireDistance)
       {
         //Player has fired
-        if (currentDistance >= distanceLvl3)
+        if (currentDistance >= distanceLvl2)
         {
           Keyboard.write(_distanceLvl4_Fire);
         }
-        else if (currentDistance >= distanceLvl2)
-        {
-          Keyboard.write(_distanceLvl3_Fire);
-        }
+       // else if (currentDistance >= distanceLvl2)
+       // {
+       //   Keyboard.write(_distanceLvl3_Fire);
+       // }
         else if (currentDistance >= distanceLvl1)
         {
           Keyboard.write(_distanceLvl2_Fire);
