@@ -98,30 +98,31 @@ const int maxDistanceCheck = 100;
 const float startFireDistance = 5;
 const float endFireDistance = 4.2;
 const float distanceLvl1 = 5.25;
-const float distanceLvl2 = 5.3;
-const float distanceLvl3 = 5.5;
+const float distanceLvl2 = 5.45;
 
 char _firStartedKey = 'f';                
 
 char _distanceLvl1_Fire = 'a';                
 char _distanceLvl2_Fire = 'b';                
-char _distanceLvl3_Fire = 'c';                
-char _distanceLvl4_Fire = 'd';                
+char _distanceLvl3_Fire = 'd';                
 
 char _distanceLvl1_Load = 'w';
 bool lvl1_HasLoaded;                
 char _distanceLvl2_Load = 'x';
 bool lvl2_HasLoaded;                     
-char _distanceLvl3_Load = 'y';
+char _distanceLvl3_Load = 'z';
 bool lvl3_HasLoaded;                     
-char _distanceLvl4_Load = 'z';
-bool lvl4_HasLoaded;                     
 
-float customDivsor = 2;
+const int maxDistanceCheck = 100;
+
 
 unsigned long currentMillis = 0;    // stores the value of millis() in each iteration of loop()
 const int onBoardDistanceInterval = 60;
 unsigned long previousDistanceCheck = 0;
+
+
+const int delayAfterShooting = 500;
+unsigned long previousShootCheck = 0;
 
 
 void setup() {
@@ -259,6 +260,12 @@ void captureDistance()
 
   previousDistanceCheck += onBoardDistanceInterval;
 
+      //if time between each shot is ok allow for another shoot.
+  if (currentMillis <= previousShootCheck)
+    return;
+
+
+
   float duration, cm, currentDistance;
 
   // The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
@@ -278,11 +285,10 @@ void captureDistance()
     {
       Keyboard.write(_firStartedKey);
       canFire = true;
-      currentDistance = cm;
+      currentDistance = 0;
       lvl1_HasLoaded = false;
       lvl2_HasLoaded = false;
       lvl3_HasLoaded = false;
-      lvl4_HasLoaded = false;
     }
     if (canFire)
     {
@@ -290,39 +296,53 @@ void captureDistance()
       {
         currentDistance = cm;
         //Player is loading Goo
-        if (!lvl1_HasLoaded && currentDistance >= startFireDistance)
-        {  
-          Keyboard.write(_distanceLvl1_Load);
+        if (!lvl3_HasLoaded && currentDistance >= distanceLvl2)
+        {
+          Keyboard.write(_distanceLvl3_Load);
+          lvl3_HasLoaded = true;
+          lvl2_HasLoaded = true;
           lvl1_HasLoaded = true;
         }
         else if (!lvl2_HasLoaded && currentDistance >= distanceLvl1)
         {
           Keyboard.write(_distanceLvl2_Load);
           lvl2_HasLoaded = true;
+          lvl1_HasLoaded = true;
         }
-   //     else if (!lvl3_HasLoaded && currentDistance >= distanceLvl2)
-   //     {
-   //       Keyboard.write(_distanceLvl3_Load);
-   //       lvl3_HasLoaded = true;
-   //     }
-        else if (!lvl4_HasLoaded && currentDistance >= distanceLvl2)
+        else if (!lvl1_HasLoaded && currentDistance >= startFireDistance)
         {
-          Keyboard.write(_distanceLvl4_Load);
-          lvl4_HasLoaded = true;
+          Keyboard.write(_distanceLvl1_Load);
+          lvl1_HasLoaded = true;
         }
+
+        /*
+        if (!lvl1_HasLoaded && currentDistance >= startFireDistance)
+        {  
+          Keyboard.write(_distanceLvl4_Load);
+          lvl1_HasLoaded = true;
+        }
+        */
       }
+      
+        /*
+        if (cm < endFireDistance)
+        {
+          //Player has fired
+          Keyboard.write(_distanceLvl4_Fire);
+        
+          currentDistance = 0;
+          canFire = false;
+          delay(100);
+        }
+        */
 
       if (cm < endFireDistance)
       {
         //Player has fired
         if (currentDistance >= distanceLvl2)
         {
-          Keyboard.write(_distanceLvl4_Fire);
+          Keyboard.write(_distanceLvl3_Fire);
         }
-       // else if (currentDistance >= distanceLvl2)
-       // {
-       //   Keyboard.write(_distanceLvl3_Fire);
-       // }
         else if (currentDistance >= distanceLvl1)
         {
           Keyboard.write(_distanceLvl2_Fire);
@@ -334,6 +354,7 @@ void captureDistance()
         
         currentDistance = 0;
         canFire = false;
+        previousShootCheck = delayAfterShooting + currentMillis;
         delay(100);
       }
     }
